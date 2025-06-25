@@ -477,20 +477,6 @@
 						this.hoverbox = _.find(this.client.categories, ['id', '1706965363649']);
                         this.loading = false;
                     setTimeout(() => {
-                        const swiper = new Swiper('.swiper-container', {
-                            slidesPerView: 1,
-                            autoplay: true,
-                            pagination: {
-                                el: '.swiper-pagination',
-                                type: 'fraction',
-                            },
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                            },
-                        });
-                    }, 50);
-                    setTimeout(() => {
                         this.notifyShow = true;
                         if(this.notifyFix != null && this.notifyFix.sites != null){
                             setInterval(() => {
@@ -576,6 +562,25 @@
            });
          }
        });
+       // Swiper slider'ı başlat
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+       });
+	    
     </script>
 </body>
 </html>
