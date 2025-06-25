@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="app.css">
     <link rel="shortcut icon" href="img/siteicon.png">
     <link rel="stylesheet" href="ajax/swiper.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -574,23 +573,6 @@
              sliderContent.style.animationPlayState = 'running';
            });
          }
-       });
-       var swiper = new Swiper('.swiper-container', {
-           slidesPerView: 1,
-           spaceBetween: 30,
-           loop: true,
-           pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-           },
-           navigation: {
-               nextEl: '.swiper-button-next',
-               prevEl: '.swiper-button-prev',
-           },
-           autoplay: {
-               delay: 5000,
-               disableOnInteraction: false,
-           },
        });
     </script>
 </body>
