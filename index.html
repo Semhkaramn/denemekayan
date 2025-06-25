@@ -259,24 +259,24 @@
                         </li>
                 </ul>
             </div>
-            <!-- Kayan Bant (strip) -->
-            <div class="ozel-siteler-banner" id="scrollingBanner" v-if="strip">
-              <div class="ozel-siteler-slider">
-                <div class="slider-content" id="sliderContent">
-                  <a v-for="site in _.orderBy(strip.sites, [item => parseInt(item.sort)], ['asc'])"
-                     :href="_.find(client.sites, ['site', site.site]).url"
-                     class="site-item"
-                     target="_blank">
-                    <img :src="client.cdn_url + _.find(client.sites, ['site', site.site]).site + '.png'" alt="">
-                    <div class="giris-btn">GİRİŞ YAP</div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="kayan-bant-spacer" v-if="strip">
-            </div>
 
         </header>
+        <!-- Kayan Bant (strip) -->
+        <div class="ozel-siteler-banner" id="scrollingBanner" v-if="strip">
+            <div class="ozel-siteler-slider">
+            <div class="slider-content" id="sliderContent">
+                <a v-for="site in _.orderBy(strip.sites, [item => parseInt(item.sort)], ['asc'])"
+                 :href="_.find(client.sites, ['site', site.site]).url"
+                 class="site-item"
+                 target="_blank">
+                <img :src="client.cdn_url + _.find(client.sites, ['site', site.site]).site + '.png'" alt="">
+                 <div class="giris-btn">GİRİŞ YAP</div>
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="kayan-bant-spacer" v-if="strip">
+        </div>
         <div class="container" v-if="!loading">
 
         <div id="">
