@@ -317,6 +317,9 @@
                         </a>
                     </div>
                                                         </div>
+		<div class="swiper-pagination"></div>
+ 	        <div class="swiper-button-next"></div>
+  	        <div class="swiper-button-prev"></div>
             </div>
         </div>
 		
@@ -357,6 +360,7 @@
                 <div class="button">Giriş Yap</div>
               </div>
             </a>
+		
 <!-- HOVER SPONSOR-->		
 			<div class="img-container">
                 <div class="img-box" v-if="_.find(client.sites, ['site', site.site])" v-for="(site,siteKey) in _.orderBy(hoverbox.sites, [item => parseInt(item.sort)], ['asc'])">
