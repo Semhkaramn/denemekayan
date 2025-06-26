@@ -725,7 +725,7 @@
          }
        });
        // Swiper slider'ı başlat
-        window.onload = function () {
+        this.$nextTick(() => {
           var swiper = new Swiper('.swiper-container', {
               slidesPerView: 1,
               spaceBetween: 30,
