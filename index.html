@@ -583,40 +583,65 @@ html, body {
         </div>
 
               <div class="img-container" id="hover-sites"></div>
-                    <script>
+	      <div id="vip-sites" class="row"></div>
+
+ <script>
   const hoverSites = document.getElementById("hover-sites");
   const vipSites = document.getElementById("vip-sites");
+  const colorThief = new ColorThief();
 
-  siteData.forEach(site => {
-    // Hoverlı kutu
-    hoverSites.innerHTML += `
-      <div class="img-box">
-        <img src="img/logo/${site.image}.jpg" class="background-img">
-        <a href="${site.url}" target="_blank">
-          <img src="img/logo/${site.image}.png" class="overlay-img">
-          <div class="hovertext">${site.desc[0]}<br>${site.desc[1]}</div>
-        </a>
-      </div>
-    `;
+  fetch("hayalet.json")
+    .then(res => res.json())
+    .then(data => {
+      data.sort((a, b) => a.sira_no - b.sira_no);
 
-    // VIP kutu
-    vipSites.innerHTML += `
-      <div class="col">
-        <a href="${site.url}" target="_blank" class="item banner-item" style="--site-color: ${site.color}">
-          <div class="left">
-            <img src="img/logo/${site.image}.png" width="150">
-            <div class="text">
-              ${site.desc[0]}
-              <div><small>${site.desc[1]}</small></div>
+      data.forEach(site => {
+        const img = new Image();
+        img.src = `img/logo/${site.image}`;
+        img.crossOrigin = "Anonymous"; // CDN'den geliyorsa bu gerekli
+
+        img.onload = () => {
+          let rgb = [0, 0, 0];
+          try {
+            rgb = colorThief.getColor(img);
+          } catch (e) {
+            console.warn("Renk alınamadı:", site.image);
+          }
+          const hexColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+
+          // Hover kutusu
+          hoverSites.innerHTML += `
+            <div class="img-box">
+              <img src="img/logo/${site.image}" class="background-img">
+              <a href="${site.link}" target="_blank">
+                <img src="img/logo/${site.image}" class="overlay-img">
+                <div class="hovertext">${site.header}<br>${site.sub_text || ''}</div>
+              </a>
             </div>
-            <div class="button">GİRİŞ YAP</div>
-          </div>
-          <div class="vip-img"><img src="img/vip.png" width="100"></div>
-        </a>
-      </div>
-    `;
-  });
+          `;
+
+          // VIP kutusu
+          vipSites.innerHTML += `
+            <div class="col">
+              <a href="${site.link}" target="_blank" class="item banner-item" style="--site-color: ${hexColor}">
+                <div class="left">
+                  <img src="img/logo/${site.image}" width="150">
+                  <div class="text">
+                    ${site.header}
+                    <div><small>${site.sub_text || ''}</small></div>
+                  </div>
+                  <div class="button">GİRİŞ YAP</div>
+                </div>
+                <div class="vip-img"><img src="img/vip.png" width="100"></div>
+              </a>
+            </div>
+          `;
+        };
+      });
+    })
+    .catch(err => console.error("JSON verisi çekilemedi:", err));
 </script>
+
 
                 <div class="row vip banner4" id="vip-sites"></div>
                   
@@ -722,330 +747,6 @@ html, body {
                     </a>
                 </div>
                                                                 <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
-                    <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
-                        <div class="left">
-                            <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
-                            <div class="text">
-                                500 FREESPİN DENEME BONUSU                                <div><small></small></div>
-                            </div>
-                            <div class="button">GİRİŞ YAP</div>
-                        </div>
-                        <div class="vip-img"><img src="img/vip.png" width="100"></div>
-                    </a>
-                </div>
-                                                                  <div class="col">
                     <a target="_blank" href="https://kroyal.win/t95de5461" class="item banner-item">
                         <div class="left">
                             <img src="img/logo/meritking.png" width="150" class="banner-img" crossorigin="anonymous">
