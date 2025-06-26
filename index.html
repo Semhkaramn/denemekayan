@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/inline_styles.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -26,37 +31,75 @@
     <meta property="og:image" content="https://www.casinohayalet.com/img/siteicon.png" />
     <!-- İçerik tipi -->
     <meta property="og:type" content="website" />
-
-</script>
+	
 </head>
 <body>
 <style>
 
-#swiper {
+#swiper img {
     width: 100%;
-    height: 300px;
+    height: 200px;
     object-fit: cover;
-    margin-left: auto;
-    margin-right: auto;
     display: block;
 }
-@media (max-width: 762px) {
+@media (max-width:762px) {
+
     #swiper {
-        width: 90%;           /* Tam genişlik yerine yüzde 90 yap */
-        height: 100px;
-        object-fit: cover;
-        border-radius: 12px;
-        overflow: hidden;
-        margin-left: auto;    /* Ortalamak için */
-        margin-right: auto;   /* Ortalamak için */
-        display: block;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
     }
 }
 
 
+/* Swiper container için genel düzenlemeler */
 .swiper-container {
     width: 100%;
     height: auto;
+    padding: 0 15px; /* Mobilde yanlara boşluk ekler */
+    box-sizing: border-box; /* Padding'i genişliğe dahil eder */
+}
+
+/* Swiper slide için düzenlemeler */
+.swiper-slide {
+    border-radius: 15px; /* Köşeleri yuvarlak yapar */
+    overflow: hidden; /* İçeriklerin yuvarlak köşeleri aşmasını engeller */
+    margin: 0 5px; /* Slide'lar arasına boşluk ekler */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Swiper slide içindeki resimler */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px; /* Resim köşelerini yuvarlak yapar */
+}
+
+/* Mobil görünüm için özel ayarlar */
+@media (max-width: 768px) {
+    .swiper-container {
+        padding: 0 10px; /* Mobilde daha az yan boşluk */
+    }
+    
+    .swiper-slide {
+        border-radius: 10px; /* Mobilde biraz daha küçük yuvarlaklık */
+    }
+    
+    .swiper-slide img {
+        border-radius: 10px; /* Mobilde resim köşeleri */
+    }
+}
+
+/* Çok küçük ekranlar için ek düzenlemeler */
+@media (max-width: 480px) {
+    .swiper-container {
+        padding: 0 8px;
+    }
+    
+    .swiper-slide {
+        margin: 0 3px;
+    }
 }
 
 /* Özel Siteler Bölümü Stilleri */
@@ -469,31 +512,29 @@
 	
 	<!-- Kayan bant için yer tutucu (spacer) -->
         <div class="kayan-bant-spacer"></div>
-
+        
         <div class="container">
-                <div id="swiper">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                                                            <div class="swiper-slide">
-                        <a href="https://cutt.ly/erQniPqh" target="_blank">
-                            <img src="img/banner/bankobetban.jpg" width="100%">
-                        </a>
-                    </div>
-                                                                                <div class="swiper-slide">
-                        <a href="https://shortbal.online/aksiyoncasino" target="_blank">
-                            <img src="img/banner/grandban.jpg" width="100%">
-                        </a>
-                    </div>
-                                                                                <div class="swiper-slide">
-                        <a href="https://casinoroys.ws/hayalet" target="_blank">
-                            <img src="img/banner/casinoroysban.jpg" width="100%">
-                        </a>
-                    </div>
-                                                        </div>
-            </div>
+                <div class="swiper-container" id="swiper">
+                        <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                        <a href="https://cutt.ly/erQniPqh" target="_blank">
+                                                <img src="img/banner/bankobetban.jpg" width="100%">
+                                        </a>
+                                </div>
+                                <div class="swiper-slide">
+                                        <a href="https://shortbal.online/aksiyoncasino" target="_blank">
+                                                <img src="img/banner/grandban.jpeg" width="100%">
+                                        </a>
+                                </div>
+                                <div class="swiper-slide">
+                                        <a href="https://casinoroys.ws/hayalet" target="_blank">
+                                                <img src="img/banner/casinoroysban.jpg" width="100%">
+                                        </a>
+                                </div>
+                        </div>
+                </div>
         </div>
 
-		
 		
 	<div class="container" v-if="!loading">
 
@@ -730,28 +771,28 @@
       }
 
       // DOM yüklendikten sonra hover animasyonu başlat/durdur
-        this.$nextTick(() => {
-            this.$watch('strip', (newVal) => {
-                if (newVal) {
-                    const sliderContent = document.getElementById('sliderContent');
-                    if (sliderContent) {
-                        sliderContent.addEventListener('mouseenter', () => {
-                            sliderContent.style.animationPlayState = 'paused';
-                        });
-                        sliderContent.addEventListener('mouseleave', () => {
-                            sliderContent.style.animationPlayState = 'running';
-                        });
-                    }
-                }
-            });
+      this.$nextTick(() => {
+        this.$watch('strip', (newVal) => {
+          if (newVal) {
+            const sliderContent = document.getElementById('sliderContent');
+            if (sliderContent) {
+              sliderContent.addEventListener('mouseenter', () => {
+                sliderContent.style.animationPlayState = 'paused';
+              });
+              sliderContent.addEventListener('mouseleave', () => {
+                sliderContent.style.animationPlayState = 'running';
+              });
+            }
+          }
         });
-
+      });
 
       // Swiper slider başlatma
       this.slider = new Swiper('.swiper-container', {
         slidesPerView: 1,
-        spaceBetween: 30,
+        spaceBetween: 15, // Slide'lar arası boşluk
         loop: true,
+        centeredSlides: true, // Slide'ları ortalar
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -764,6 +805,13 @@
           delay: 5000,
           disableOnInteraction: false,
         },
+        breakpoints: {
+          // 768px ve üzeri ekranlar için
+          768: {
+            spaceBetween: 30,
+            centeredSlides: false
+          }
+        }
       });
     },
 
@@ -776,7 +824,6 @@
         const rgb = this.hexToRgb(hex);
         return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
       },
-
       hexToRgb(hex) {
         hex = hex.replace(/^#/, '');
         if (hex.length === 3) {
