@@ -6,28 +6,28 @@
         "site": "bankobet",
         "url": "https://cutt.ly/erQniPqh",
         "desc": ["250 TL DENEME BONUSU", "%30 CASİNO KAYIP BONUSU"],
-        "sitepic": "bankobet.png",
+        "sitepic": "img/logo/bankobet.png",
         "color": "#b91560"
       },
       {
         "site": "casinoroys",
         "url": "https://casinoroys.ws/hayalet",
         "desc": ["%300 HOŞGELDİN BONUSU", "%30 KAYIP BONUSU"],
-        "sitepic": "casinoroys.png",
+        "sitepic": "img/logo/casinoroys.png",
         "color": "#6d4f80"
       },
       {
         "site": "mersobahis",
         "url": "https://partner.mersoaff.com/imp/mersobahis/1704",
         "desc": ["25 TL DENEME BONUSU", "%20 KAYIP BONUSU"],
-        "sitepic": "mersobahis.png",
+        "sitepic": "img/logo/mersobahis.png",
         "color": "#181818"
       },
       {
         "site": "grandpasha",
         "url": "https://shortbal.online/aksiyoncasino",
         "desc": ["500₺ DENEME BONUSU", "%20 KAYIP BONUSU"],
-        "sitepic": "grandpasha.png",
+        "sitepic": "img/logo/grandpasha.png",
         "color": "#fff980"
       }
     ],
@@ -35,10 +35,10 @@
       {
         "name": "4 animasyonlu siteler",
         "sites": [
-          { "site": "bankobet", "bg": "1.jpg" },
-          { "site": "casinoroys", "bg": "2.jpg" },
-          { "site": "mersobahis", "bg": "3.jpg" },
-          { "site": "grandpasha", "bg": "4.jpg" }
+          { "site": "bankobet", "bg": "bankobet.jpg" },
+          { "site": "casinoroys", "bg": "casinoroys.jpg" },
+          { "site": "mersobahis", "bg": "mersobahis.jpg" },
+          { "site": "grandpasha", "bg": "grandpasha.jpg" }
         ]
       }
     ]
