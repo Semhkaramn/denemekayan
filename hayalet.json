@@ -1,67 +1,93 @@
-[
-  {
-    "id": 1,
-    "header": "BU ALANA REKLAM VEREBİLİRSİNİZ",
-    "sub_text": "",
-    "image": "reklam.png",
-    "link": "https://t.me/HAYALET7777",
-    "level": 1,
-    "sira_no": 1
+{
+  "html": {
+    "cdn_url": "https://semhkaramn.github.io/hayalet/img/logo/",
+    "sites": [
+      {
+        "site": "bankobet",
+        "url": "https://cutt.ly/erQniPqh",
+        "desc": ["250 TL DENEME BONUSU", "%30 CASİNO KAYIP BONUSU"],
+        "sitepic": "bankobet.png",
+        "color": "#b91560"
+      },
+      {
+        "site": "casinoroys",
+        "url": "https://casinoroys.ws/hayalet",
+        "desc": ["%300 HOŞGELDİN BONUSU", "%30 KAYIP BONUSU"],
+        "sitepic": "casinoroys.png",
+        "color": "#6d4f80"
+      },
+      {
+        "site": "mersobahis",
+        "url": "https://partner.mersoaff.com/imp/mersobahis/1704",
+        "desc": ["25 TL DENEME BONUSU", "%20 KAYIP BONUSU"],
+        "sitepic": "mersobahis.png",
+        "color": "#181818"
+      },
+      {
+        "site": "grandpasha",
+        "url": "https://shortbal.online/aksiyoncasino",
+        "desc": ["500₺ DENEME BONUSU", "%20 KAYIP BONUSU"],
+        "sitepic": "grandpasha.png",
+        "color": "#fff980"
+      }
+    ],
+    "categories": [
+      {
+        "name": "4 animasyonlu siteler",
+        "sites": [
+          { "site": "bankobet", "bg": "1.jpg" },
+          { "site": "casinoroys", "bg": "2.jpg" },
+          { "site": "mersobahis", "bg": "3.jpg" },
+          { "site": "grandpasha", "bg": "4.jpg" }
+        ]
+      }
+    ]
   },
-  {
-    "id": 2,
-    "header": "250₺ DENEME BONUSU",
-    "sub_text": "",
-    "image": "bankobet.png",
-    "link": "https://cutt.ly/erQniPqh",
-    "level": 1,
-    "sira_no": 2
-  },
-  {
-    "id": 3,
-    "header": "%300 HOŞGELDİN BONUSU",
-    "sub_text": "",
-    "image": "casinoroys.png",
-    "link": "https://casinoroys.ws/hayalet",
-    "level": 1,
-    "sira_no": 3
-  },
-  {
-    "id": 4,
-    "header": "25₺ DENEME BONUSU",
-    "sub_text": "",
-    "image": "mersobahis.png",
-    "link": "https://partner.mersoaff.com/imp/mersobahis/1704",
-    "level": 1,
-    "sira_no": 4
-  },
-  {
-    "id": 5,
-    "header": "500₺ DENEME BONUSU",
-    "sub_text": "",
-    "image": "grandpasha.png",
-    "link": "https://shortbal.online/aksiyoncasino",
-    "level": 1,
-    "sira_no": 5
-  }
-]
-
-
-const siteData = [
-  {
-    image: "bahisen",
-    name: "Bahisen",
-    url: "https://t2m.co/Hayalet",
-    desc: ["500₺ Deneme Bonusu", "Anında Üyelik"],
-    color: "#FF0000"
-  },
-  {
-    image: "bankobet",
-    name: "Bankobet",
-    url: "https://cutt.ly/erQniPqh",
-    desc: ["250₺ Bonus", "Hemen Başla"],
-    color: "#0037FF"
-  }
-  // ...istediğin kadar ekle
-];
-
+  "bottom_fix": [
+    {
+      "id": 1,
+      "header": "BU ALANA REKLAM VEREBİLİRSİNİZ",
+      "sub_text": "",
+      "image": "reklam.png",
+      "link": "https://t.me/HAYALET7777",
+      "level": 1,
+      "sira_no": 1
+    },
+    {
+      "id": 2,
+      "header": "250₺ DENEME BONUSU",
+      "sub_text": "",
+      "image": "bankobet.png",
+      "link": "https://cutt.ly/erQniPqh",
+      "level": 1,
+      "sira_no": 2
+    },
+    {
+      "id": 3,
+      "header": "%300 HOŞGELDİN BONUSU",
+      "sub_text": "",
+      "image": "casinoroys.png",
+      "link": "https://casinoroys.ws/hayalet",
+      "level": 1,
+      "sira_no": 3
+    },
+    {
+      "id": 4,
+      "header": "25₺ DENEME BONUSU",
+      "sub_text": "",
+      "image": "mersobahis.png",
+      "link": "https://partner.mersoaff.com/imp/mersobahis/1704",
+      "level": 1,
+      "sira_no": 4
+    },
+    {
+      "id": 5,
+      "header": "500₺ DENEME BONUSU",
+      "sub_text": "",
+      "image": "grandpasha.png",
+      "link": "https://shortbal.online/aksiyoncasino",
+      "level": 1,
+      "sira_no": 5
+    }
+  ]
+}
