@@ -599,180 +599,183 @@
                              This App Provided By AFK</a></div>
         <div class="overlay" v-show="!_.isEmpty(notifyFix.sites)" v-if="notifyShow"></div>
     </div>
- <script src="vue/vue.min.js"></script>
-    <script src="lodash/lodash.min.js"></script>
-    <script src="reset.js"></script>
-    <script src="axios/axios.min.js"></script>
-    <script src="swiper/swiper-bundle.min.js"></script>
-    <script>
-        var app = new Vue({
-            el: '#app-v-page',
-            mounted(){
-                window.onload = function() {
-                  document.getElementById('preloader').style.display = 'none';
-                  document.getElementById('app-v-page').style.display = 'block';
+<script src="vue/vue.min.js"></script>
+<script src="lodash/lodash.min.js"></script>
+<script src="reset.js"></script>
+<script src="axios/axios.min.js"></script>
+<script src="swiper/swiper-bundle.min.js"></script>
 
-                  var nav = document.querySelector('#app-v-page');
-                    var navTop = nav.offsetTop;
-                        
-                    function navFixed(e) {
-                        if(window.scrollY - 75 >= navTop) {
-                            document.querySelector('#app-v-page').classList.add('is-fixed');
-                        } else {
-                            document.querySelector('#app-v-page').classList.remove('is-fixed');
-                        }
-                    }
-                    window.addEventListener('scroll', navFixed);
-                };
-            },
-            created(){
-                this.loading = true;
-                axios.get('hayalet.json')
-                .then((response) => {
-                        this.client = response.data.html
-                        this.leftFix = _.find(this.client.categories, ['id', "1706206125458"]);
-                        this.rightFix = _.find(this.client.categories, ['id', "1706206145587"]);
-                        this.vip = _.find(this.client.categories, ['id', "1706206255751"]);
-                        this.strip = _.find(this.client.categories, ['id', "1710236499016"]);
-                        this.diamond = _.find(this.client.categories, ['id', "1706206296219"]);
-                        this.bottomFix = _.find(this.client.categories, ['id', "1706406420307"]);
-                        this.notifyFix = _.find(this.client.categories, ['id', "1706406449314"]);
-                        this.list = _.find(this.client.categories, ['id', "1706206832872"]);
-						this.hoverbox = _.find(this.client.categories, ['id', '1706965363649']);
-                        this.loading = false;
-                    setTimeout(() => {
-                        this.notifyShow = true;
-                        if(this.notifyFix != null && this.notifyFix.sites != null){
-                            setInterval(() => {
-                                _.forEach(this.notifyFix.sites,((site,siteKey) => {
-                                    if(parseInt(_.size(this.notifyFix.sites) - 1) == parseInt(this.notifyActive)){
-                                        this.notifyActive = 0;
-                                        return false
-                                    }else if(this.notifyActive < siteKey){
-                                        this.notifyActive = parseInt(siteKey);
-                                        return false;
-                                    }
-                                }));
-                            }, 5000);
-                        }
-                    }, 2500);
-                    if(this.bottomFix != null){
-                        setInterval(() => {
-                            _.forEach(this.bottomFix.sites,((site,siteKey) => {
-                                if(parseInt(_.size(this.bottomFix.sites) - 1) == parseInt(this.bottomActive)){
-                                    this.bottomActive = 0;
-                                    return false
-                                }else if(this.bottomActive < siteKey){
-                                    this.bottomActive = parseInt(siteKey);
-                                    return false;
-                                }
-                            }));
-                        }, 3000);
-                    }
-                    if(!_.isNull(this.client.background)){
-                        document.body.style.backgroundImage = 'url(' + this.client.background + ')'
-                    }
-                    
-                })
-            },
-            data() {
-                return {
-                    strip:null,
-                    leftFix:null,
-                    rightFix:null,
-                    bottomFix:null,
-                    notifyFix:null,
-                    slider:null,
-                    loading:false,
-                    bottomActive:0,
-                    bottomShow:true,
-                    notifyShow:false,
-                    notifyActive:0,
-                    list:null,
-                    is_mobile: Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1,
-                    client:{},
-                };
-            },
-        })
-        window.addEventListener('load', () => {
-         const sliderContent = document.getElementById('sliderContent');
-         const scrollingBanner = document.getElementById('scrollingBanner');
-         const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
-         if (!scrollingBanner) return;
+<script>
+  var app = new Vue({
+    el: '#app-v-page',
 
-         const navTop = scrollingBanner.offsetTop;
+    data() {
+      return {
+        strip: null,
+        leftFix: null,
+        rightFix: null,
+        bottomFix: null,
+        notifyFix: null,
+        slider: null,
+        loading: false,
+        bottomActive: 0,
+        bottomShow: true,
+        notifyShow: false,
+        notifyActive: 0,
+        list: null,
+        is_mobile: Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1,
+        client: {},
+      };
+    },
 
-	methods: {
-	  getSiteStyle(siteKey) {
-	    const siteData = _.find(this.client.sites, ['site', siteKey]);
-	    if (!siteData || !siteData.color) return '';
-	    
-	    const hex = siteData.color;
-	    const rgb = this.hexToRgb(hex); // RGB'ye dönüştür
+    created() {
+      this.loading = true;
+      axios.get('hayalet.json')
+        .then((response) => {
+          this.client = response.data.html;
+          this.leftFix = _.find(this.client.categories, ['id', "1706206125458"]);
+          this.rightFix = _.find(this.client.categories, ['id', "1706206145587"]);
+          this.vip = _.find(this.client.categories, ['id', "1706206255751"]);
+          this.strip = _.find(this.client.categories, ['id', "1710236499016"]);
+          this.diamond = _.find(this.client.categories, ['id', "1706206296219"]);
+          this.bottomFix = _.find(this.client.categories, ['id', "1706406420307"]);
+          this.notifyFix = _.find(this.client.categories, ['id', "1706406449314"]);
+          this.list = _.find(this.client.categories, ['id', "1706206832872"]);
+          this.hoverbox = _.find(this.client.categories, ['id', '1706965363649']);
+          this.loading = false;
 
-	    return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
-	  },
-	  
-	  hexToRgb(hex) {
-	    hex = hex.replace(/^#/, ''); // Başındaki # işaretini çıkar
+          setTimeout(() => {
+            this.notifyShow = true;
+            if (this.notifyFix != null && this.notifyFix.sites != null) {
+              setInterval(() => {
+                _.forEach(this.notifyFix.sites, ((site, siteKey) => {
+                  if (parseInt(_.size(this.notifyFix.sites) - 1) == parseInt(this.notifyActive)) {
+                    this.notifyActive = 0;
+                    return false;
+                  } else if (this.notifyActive < siteKey) {
+                    this.notifyActive = parseInt(siteKey);
+                    return false;
+                  }
+                }));
+              }, 5000);
+            }
+          }, 2500);
 
-	    // Eğer 3 karakterlik kısa format (#f90) ise 6 karaktere çevir (#ff9900)
-	    if (hex.length === 3) {
-	      hex = hex.split('').map(char => char + char).join('');
-	    }
+          if (this.bottomFix != null) {
+            setInterval(() => {
+              _.forEach(this.bottomFix.sites, ((site, siteKey) => {
+                if (parseInt(_.size(this.bottomFix.sites) - 1) == parseInt(this.bottomActive)) {
+                  this.bottomActive = 0;
+                  return false;
+                } else if (this.bottomActive < siteKey) {
+                  this.bottomActive = parseInt(siteKey);
+                  return false;
+                }
+              }));
+            }, 3000);
+          }
 
-	    const bigint = parseInt(hex, 16);
-	    const r = (bigint >> 16) & 255;
-	    const g = (bigint >> 8) & 255;
-	    const b = bigint & 255;
+          if (!_.isNull(this.client.background)) {
+            document.body.style.backgroundImage = 'url(' + this.client.background + ')';
+          }
+        });
+    },
 
-	    return `${r}, ${g}, ${b}`;
-	  }
-	}
+    mounted() {
+      // Preloader ve görünürlük ayarı
+      window.onload = () => {
+        document.getElementById('preloader').style.display = 'none';
+        document.getElementById('app-v-page').style.display = 'block';
 
-			
-	 // Scroll ile fixed olma
-         function handleScroll() {
-           if (window.scrollY >= navTop) {
-             document.querySelector('#app-v-page').classList.add('is-fixed');
-             scrollingBanner.classList.add('fixed');
-             kayanBantSpacer.classList.add('active');
-           } else {
-             document.querySelector('#app-v-page').classList.remove('is-fixed');
-             scrollingBanner.classList.remove('fixed');
-             kayanBantSpacer.classList.remove('active');
-           }
-         }
-         window.addEventListener('scroll', handleScroll);
+        var nav = document.querySelector('#app-v-page');
+        var navTop = nav.offsetTop;
 
-         // Hover ile durdur/başlat
-         if (sliderContent) {
-           sliderContent.addEventListener('mouseenter', () => {
-             sliderContent.style.animationPlayState = 'paused';
-           });
-           sliderContent.addEventListener('mouseleave', () => {
-             sliderContent.style.animationPlayState = 'running';
-           });
-         }
-       });
-       // Swiper slider'ı başlat
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-       });
- </script>
+        function navFixed(e) {
+          if (window.scrollY - 75 >= navTop) {
+            document.querySelector('#app-v-page').classList.add('is-fixed');
+          } else {
+            document.querySelector('#app-v-page').classList.remove('is-fixed');
+          }
+        }
+        window.addEventListener('scroll', navFixed);
+      };
+
+      // Kayan bant scroll ve hover kontrolü
+      const sliderContent = document.getElementById('sliderContent');
+      const scrollingBanner = document.getElementById('scrollingBanner');
+      const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
+      if (scrollingBanner) {
+        const navTop = scrollingBanner.offsetTop;
+
+        function handleScroll() {
+          if (window.scrollY >= navTop) {
+            document.querySelector('#app-v-page').classList.add('is-fixed');
+            scrollingBanner.classList.add('fixed');
+            kayanBantSpacer.classList.add('active');
+          } else {
+            document.querySelector('#app-v-page').classList.remove('is-fixed');
+            scrollingBanner.classList.remove('fixed');
+            kayanBantSpacer.classList.remove('active');
+          }
+        }
+        window.addEventListener('scroll', handleScroll);
+      }
+
+      if (sliderContent) {
+        sliderContent.addEventListener('mouseenter', () => {
+          sliderContent.style.animationPlayState = 'paused';
+        });
+        sliderContent.addEventListener('mouseleave', () => {
+          sliderContent.style.animationPlayState = 'running';
+        });
+      }
+
+      // Swiper slider başlatma
+      this.slider = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+      });
+    },
+
+    methods: {
+      getSiteStyle(siteKey) {
+        const siteData = _.find(this.client.sites, ['site', siteKey]);
+        if (!siteData || !siteData.color) return '';
+
+        const hex = siteData.color;
+        const rgb = this.hexToRgb(hex); // RGB'ye dönüştür
+        return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
+      },
+
+      hexToRgb(hex) {
+        hex = hex.replace(/^#/, ''); // Başındaki # işaretini çıkar
+
+        if (hex.length === 3) {
+          hex = hex.split('').map(char => char + char).join('');
+        }
+
+        const bigint = parseInt(hex, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+
+        return `${r}, ${g}, ${b}`;
+      }
+    }
+  });
+</script>
 </body>
 </html>
