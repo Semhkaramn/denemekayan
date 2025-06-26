@@ -42,6 +42,8 @@
     object-fit: cover;
 }
 
+}
+
 @keyframes marquee-desktop {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
@@ -293,6 +295,7 @@
         </div>
         <div class="kayan-bant-spacer" v-if="strip">
         </div>
+	    
 	
 	<!-- Kayan bant için yer tutucu (spacer) -->
         <div class="kayan-bant-spacer"></div>
@@ -317,11 +320,10 @@
                         </a>
                     </div>
                                                         </div>
-		<div class="swiper-pagination"></div>
- 	        <div class="swiper-button-next"></div>
-  	        <div class="swiper-button-prev"></div>
             </div>
         </div>
+
+		
 		
 	<div class="container" v-if="!loading">
 
