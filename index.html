@@ -663,7 +663,6 @@
 <script>
   var app = new Vue({
     el: '#app-v-page',
-
     data() {
       return {
         strip: null,
@@ -682,7 +681,6 @@
         client: {},
       };
     },
-
     created() {
       this.loading = true;
       axios.get('hayalet.json')
@@ -701,32 +699,32 @@
 
           setTimeout(() => {
             this.notifyShow = true;
-            if (this.notifyFix != null && this.notifyFix.sites != null) {
+            if (this.notifyFix?.sites) {
               setInterval(() => {
-                _.forEach(this.notifyFix.sites, ((site, siteKey) => {
-                  if (parseInt(_.size(this.notifyFix.sites) - 1) == parseInt(this.notifyActive)) {
+                _.forEach(this.notifyFix.sites, (site, siteKey) => {
+                  if (this.notifyActive >= _.size(this.notifyFix.sites) - 1) {
                     this.notifyActive = 0;
                     return false;
                   } else if (this.notifyActive < siteKey) {
                     this.notifyActive = parseInt(siteKey);
                     return false;
                   }
-                }));
+                });
               }, 5000);
             }
           }, 2500);
 
-          if (this.bottomFix != null) {
+          if (this.bottomFix?.sites) {
             setInterval(() => {
-              _.forEach(this.bottomFix.sites, ((site, siteKey) => {
-                if (parseInt(_.size(this.bottomFix.sites) - 1) == parseInt(this.bottomActive)) {
+              _.forEach(this.bottomFix.sites, (site, siteKey) => {
+                if (this.bottomActive >= _.size(this.bottomFix.sites) - 1) {
                   this.bottomActive = 0;
                   return false;
                 } else if (this.bottomActive < siteKey) {
                   this.bottomActive = parseInt(siteKey);
                   return false;
                 }
-              }));
+              });
             }, 3000);
           }
 
@@ -735,66 +733,37 @@
           }
         });
     },
-
     mounted() {
-      // Preloader ve görünürlük ayarı
       document.getElementById('preloader').style.display = 'none';
       document.getElementById('app-v-page').style.display = 'block';
 
-      // Navbar scroll sabitleme
       const nav = document.querySelector('#app-v-page');
-      const navTop = nav.offsetTop;
-      const navFixed = () => {
-        if (window.scrollY - 75 >= navTop) {
+      const navTop = 100;
+
+      const scrollingBanner = document.querySelector('.ozel-siteler-banner');
+      const sliderContent = document.getElementById('sliderContent');
+      const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
+
+      function handleScroll() {
+        if (window.scrollY >= navTop) {
           nav.classList.add('is-fixed');
+          scrollingBanner?.classList.add('fixed');
+          kayanBantSpacer?.classList.add('active');
         } else {
           nav.classList.remove('is-fixed');
+          scrollingBanner?.classList.remove('fixed');
+          kayanBantSpacer?.classList.remove('active');
         }
-      };
-      window.addEventListener('scroll', navFixed);
-
-      // Kayan bant scroll sabitleme
-      const scrollingBanner = document.getElementById('scrollingBanner');
-      const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
-      if (scrollingBanner) {
-        const navTopBanner = scrollingBanner.offsetTop;
-        const handleScroll = () => {
-          if (window.scrollY >= navTopBanner) {
-            nav.classList.add('is-fixed');
-            scrollingBanner.classList.add('fixed');
-            kayanBantSpacer.classList.add('active');
-          } else {
-            nav.classList.remove('is-fixed');
-            scrollingBanner.classList.remove('fixed');
-            kayanBantSpacer.classList.remove('active');
-          }
-        };
-        window.addEventListener('scroll', handleScroll);
       }
 
-      // DOM yüklendikten sonra hover animasyonu başlat/durdur
-      this.$nextTick(() => {
-        this.$watch('strip', (newVal) => {
-          if (newVal) {
-            const sliderContent = document.getElementById('sliderContent');
-            if (sliderContent) {
-              sliderContent.addEventListener('mouseenter', () => {
-                sliderContent.style.animationPlayState = 'paused';
-              });
-              sliderContent.addEventListener('mouseleave', () => {
-                sliderContent.style.animationPlayState = 'running';
-              });
-            }
-          }
-        });
-      });
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
 
-      // Swiper slider başlatma
+      // Swiper (Karaeski ayarları)
       this.slider = new Swiper('.swiper-container', {
         slidesPerView: 1,
-        spaceBetween: 15, // Slide'lar arası boşluk
+        spaceBetween: 30,
         loop: true,
-        centeredSlides: true, // Slide'ları ortalar
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -807,30 +776,61 @@
           delay: 5000,
           disableOnInteraction: false,
         },
-        breakpoints: {
-          // 768px ve üzeri ekranlar için
-          768: {
-            spaceBetween: 30,
-            centeredSlides: false
-          }
-        }
       });
-    },
 
+      // Slider animasyon kontrol
+      if (sliderContent) {
+        sliderContent.addEventListener('mouseenter', () => {
+          sliderContent.style.animationPlayState = 'paused';
+        });
+        sliderContent.addEventListener('mouseleave', () => {
+          sliderContent.style.animationPlayState = 'running';
+        });
+      }
+
+      const checkMobile = () => {
+        const isMobile = this.is_mobile;
+        const appPage = document.getElementById('app-v-page');
+        appPage?.classList.toggle('mobile', isMobile);
+
+        if (sliderContent) {
+          if (isMobile) {
+            sliderContent.style.animationDuration = window.innerWidth <= 480 ? '18s' : '20s';
+            sliderContent.style.animationName = 'marquee-mobile';
+            sliderContent.style.transform = 'translateX(5%)';
+          } else {
+            sliderContent.style.animationDuration = '15s';
+            sliderContent.style.animationName = 'marquee-desktop';
+            sliderContent.style.transform = 'translateX(100%)';
+          }
+          sliderContent.style.animationPlayState = 'running';
+        }
+      };
+
+      checkMobile();
+      window.addEventListener('resize', () => {
+        if (sliderContent) {
+          sliderContent.style.animationPlayState = 'paused';
+          setTimeout(() => checkMobile(), 50);
+        } else {
+          checkMobile();
+        }
+        handleScroll();
+      });
+
+      window.addEventListener('load', checkMobile);
+    },
     methods: {
       getSiteStyle(siteKey) {
         const siteData = _.find(this.client.sites, ['site', siteKey]);
         if (!siteData || !siteData.color) return '';
-
         const hex = siteData.color;
         const rgb = this.hexToRgb(hex);
         return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
       },
       hexToRgb(hex) {
         hex = hex.replace(/^#/, '');
-        if (hex.length === 3) {
-          hex = hex.split('').map(char => char + char).join('');
-        }
+        if (hex.length === 3) hex = hex.split('').map(char => char + char).join('');
         const bigint = parseInt(hex, 16);
         const r = (bigint >> 16) & 255;
         const g = (bigint >> 8) & 255;
