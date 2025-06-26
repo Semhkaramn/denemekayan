@@ -686,39 +686,39 @@
       document.getElementById('preloader').style.display = 'none';
       document.getElementById('app-v-page').style.display = 'block';
 
-      var nav = document.querySelector('#app-v-page');
-      var navTop = nav.offsetTop;
-
-      function navFixed(e) {
+      // Navbar scroll sabitleme
+      const nav = document.querySelector('#app-v-page');
+      const navTop = nav.offsetTop;
+      const navFixed = () => {
         if (window.scrollY - 75 >= navTop) {
-          document.querySelector('#app-v-page').classList.add('is-fixed');
+          nav.classList.add('is-fixed');
         } else {
-          document.querySelector('#app-v-page').classList.remove('is-fixed');
+          nav.classList.remove('is-fixed');
         }
-      }
+      };
       window.addEventListener('scroll', navFixed);
 
-      // Kayan bant scroll ve hover kontrolü
+      // Kayan bant scroll sabitleme
       const sliderContent = document.getElementById('sliderContent');
       const scrollingBanner = document.getElementById('scrollingBanner');
       const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
       if (scrollingBanner) {
         const navTopBanner = scrollingBanner.offsetTop;
-
-        function handleScroll() {
+        const handleScroll = () => {
           if (window.scrollY >= navTopBanner) {
-            document.querySelector('#app-v-page').classList.add('is-fixed');
+            nav.classList.add('is-fixed');
             scrollingBanner.classList.add('fixed');
             kayanBantSpacer.classList.add('active');
           } else {
-            document.querySelector('#app-v-page').classList.remove('is-fixed');
+            nav.classList.remove('is-fixed');
             scrollingBanner.classList.remove('fixed');
             kayanBantSpacer.classList.remove('active');
           }
-        }
+        };
         window.addEventListener('scroll', handleScroll);
       }
 
+      // Hover ile animasyon durdurma/başlatma
       if (sliderContent) {
         sliderContent.addEventListener('mouseenter', () => {
           sliderContent.style.animationPlayState = 'paused';
