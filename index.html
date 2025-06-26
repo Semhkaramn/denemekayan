@@ -700,48 +700,296 @@
 
          const navTop = scrollingBanner.offsetTop;
 
-         // Scroll ile fixed olma
-         function handleScroll() {
-           if (window.scrollY >= navTop) {
-             document.querySelector('#app-v-page').classList.add('is-fixed');
-             scrollingBanner.classList.add('fixed');
-             kayanBantSpacer.classList.add('active');
-           } else {
-             document.querySelector('#app-v-page').classList.remove('is-fixed');
-             scrollingBanner.classList.remove('fixed');
-             kayanBantSpacer.classList.remove('active');
-           }
-         }
-         window.addEventListener('scroll', handleScroll);
+            // Color Thief kullanarak baskın renk tespiti
+            const colorThief = new ColorThief();
+            
+            // Beyaz veya çok açık renkler için kontrol fonksiyonu
+            function isWhiteOrVeryLight(rgb) {
+                // r, g, b değerlerinin toplamı belirli bir eşiği geçerse açık renk kabul et
+                return (rgb[0] > 220 && rgb[1] > 220 && rgb[2] > 220) || 
+                       (rgb[0] + rgb[1] + rgb[2] > 650);
+            }
+            
+            // RGB değerlerini HEX renge dönüştürme
+            function rgbToHex(r, g, b) {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            
+            // İkinci baskın rengi alıp beyaz değilse uygula
+            function applyDominantColor(img, element) {
+                try {
+                    if (img.complete) {
+                        // Resmin palette'ini al (dominant renkler)
+                        const palette = colorThief.getPalette(img, 5);
+                        
+                        // İlk beyaz olmayan rengi bul
+                        let dominantColor = palette[0]; // Varsayılan olarak en baskın renk
+                        
+                        for (let i = 0; i < palette.length; i++) {
+                            if (!isWhiteOrVeryLight(palette[i])) {
+                                dominantColor = palette[i];
+                                break;
+                            }
+                        }
+                        
+                        // RGB'yi hex'e dönüştür
+                        const hexColor = rgbToHex(dominantColor[0], dominantColor[1], dominantColor[2]);
+                        
+                        // Rengi elemana CSS değişkeni olarak ekle
+                        element.style.setProperty('--site-color', hexColor);
+                        
+                        // Notify-fixed (popup) için özel stil ayarları
+                        if (element.classList.contains('notify-fixed')) {
+                            // CSS değişkeni zaten eklendi, tüm stiller ona bağlı
+                            // Ek olarak özelleştirmek istediğiniz elementler varsa:
+                            const h3 = element.querySelector('h3');
+                            if (h3) h3.style.color = hexColor;
+                            
+                            const closeBtn = element.querySelector('.close svg path');
+                            if (closeBtn) closeBtn.style.stroke = hexColor;
+                        }
+                    } else {
+                        // Resim henüz yüklenmediyse yüklenme olayını dinle
+                        img.addEventListener('load', function() {
+                            applyDominantColor(img, element);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Renk tespiti hatası:', error);
+                }
+            }
+            
+            // Kayan bant öğelerini işle ve renkleri uygula
+            document.querySelectorAll('.site-item').forEach(function(siteItem) {
+                const img = siteItem.querySelector('img');
+                if (img) {
+                    try {
+                        // Resim yüklendiyse renk tespiti yap
+                        if (img.complete) {
+                            applyBandItemColor(img, siteItem);
+                        } else {
+                            // Resim henüz yüklenmediyse yüklenme olayını dinle
+                            img.addEventListener('load', function() {
+                                applyBandItemColor(img, siteItem);
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Kayan bant renk tespiti hatası:', error);
+                    }
+                }
+            });
+            
+            // Kayan bant öğeleri için renk tespiti
+            function applyBandItemColor(img, element) {
+                try {
+                    // Resmin palette'ini al (dominant renkler)
+                    const palette = colorThief.getPalette(img, 5);
+                    
+                    // İlk beyaz olmayan rengi bul
+                    let dominantColor = palette[0]; // Varsayılan olarak en baskın renk
+                    
+                    for (let i = 0; i < palette.length; i++) {
+                        if (!isWhiteOrVeryLight(palette[i])) {
+                            dominantColor = palette[i];
+                            break;
+                        }
+                    }
+                    
+                    // RGB değerlerini al
+                    const r = dominantColor[0];
+                    const g = dominantColor[1];
+                    const b = dominantColor[2];
+                    
+                    // RGB'yi hex'e dönüştür
+                    const hexColor = rgbToHex(r, g, b);
+                    
+                    // Hem HEX hem de RGB değişkenlerini ayarla
+                    element.style.setProperty('--band-color', hexColor);
+                    element.style.setProperty('--band-color-rgb', `${r}, ${g}, ${b}`);
+                } catch (error) {
+                    console.error('Kayan bant renk tespiti işlem hatası:', error);
+                }
+            }
 
-         // Hover ile durdur/başlat
-         if (sliderContent) {
-           sliderContent.addEventListener('mouseenter', () => {
-             sliderContent.style.animationPlayState = 'paused';
-           });
-           sliderContent.addEventListener('mouseleave', () => {
-             sliderContent.style.animationPlayState = 'running';
-           });
-         }
-       });
-       // Swiper slider'ı başlat
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-       });
+            // Swiper slider'ı başlat
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+            });
+
+            var nav = document.querySelector('#app-v-page');
+            var navTop = 100; // Sayfanın belirli bir noktasından sonra fixed olması için
+            
+            // Kayan bant öğesi
+            const scrollingBanner = document.querySelector('.ozel-siteler-banner');
+            const sliderContent = document.getElementById('sliderContent');
+            const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
+            
+            // Kayan bandın scroll pozisyonuna göre fixed hale gelmesi
+            function handleScroll() {
+                if (window.scrollY >= navTop) {
+                    document.querySelector('#app-v-page').classList.add('is-fixed');
+                    if (scrollingBanner) {
+                        scrollingBanner.classList.add('fixed');
+                        if (kayanBantSpacer) {
+                            kayanBantSpacer.classList.add('active');
+                        }
+                    }
+                } else {
+                    document.querySelector('#app-v-page').classList.remove('is-fixed');
+                    if (scrollingBanner) {
+                        scrollingBanner.classList.remove('fixed');
+                        if (kayanBantSpacer) {
+                            kayanBantSpacer.classList.remove('active');
+                        }
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', handleScroll);
+            
+            // Sayfa yüklendiğinde fixed sınıfını kontrol et
+            handleScroll();
+            
+            // Marque animasyonunu duraklat/devam ettir
+            if (sliderContent) {
+                sliderContent.addEventListener('mouseenter', function() {
+                    this.style.animationPlayState = 'paused';
+                });
+                
+                sliderContent.addEventListener('mouseleave', function() {
+                    this.style.animationPlayState = 'running';
+                });
+            }
+            
+
+            // Overlay'e tıklandığında da popup'ı kapat
+            document.querySelector('.popup-overlay')?.addEventListener('click', function() {
+                const notifyFixed = document.querySelector('.notify-fixed');
+                if (notifyFixed) {
+                    notifyFixed.style.display = 'none';
+                    this.style.display = 'none';
+                }
+            });
+            
+            // Mobil kontrol
+            function checkMobile() {
+                // Mobil cihaz tespiti
+                const isMobile = Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1;
+                
+                if (isMobile) {
+                    document.getElementById('app-v-page').classList.add('mobile');
+                } else {
+                    document.getElementById('app-v-page').classList.remove('mobile');
+                }
+                
+                // Kayan bant varsa animasyonları ayarla
+                const sliderContent = document.getElementById('sliderContent');
+                if (sliderContent) {
+                    if (isMobile) {
+                        // Mobil cihazda kayan bandın animasyon özelliklerini ayarla
+                        if (window.innerWidth <= 480) {
+                            // Çok küçük ekranlar için
+                            sliderContent.style.animationDuration = '18s';
+                            sliderContent.style.animationName = 'marquee-mobile';
+                        } else {
+                            // Normal mobil cihazlar için
+                            sliderContent.style.animationDuration = '20s';
+                            sliderContent.style.animationName = 'marquee-mobile';
+                        }
+                        
+                        // Animasyonun hemen başlamasını sağla
+                        sliderContent.style.animationDelay = '0s';
+                        
+                        // Mobilde ilk konumun görünür olmasını sağla
+                        sliderContent.style.transform = 'translateX(5%)';
+                    } else {
+                        // Masaüstü cihazlar için animasyon
+                        sliderContent.style.animationDuration = '15s';
+                        sliderContent.style.animationName = 'marquee-desktop';
+                        
+                        // Masaüstünde animasyonun sağdan başlamasını sağla
+                        sliderContent.style.animationDelay = '0s';
+                        sliderContent.style.transform = 'translateX(100%)';
+                    }
+                    
+                    // Animasyonu hemen başlat
+                    sliderContent.style.animationPlayState = 'running';
+                }
+            }
+            
+            // Sayfa yüklenir yüklenmez hemen çalıştır
+            checkMobile();
+            
+            // Ekran boyutu değiştiğinde animasyonu resetle
+            window.addEventListener('resize', function() {
+                // Animasyonu durdur ve sıfırla
+                const sliderContent = document.getElementById('sliderContent');
+                if (sliderContent) {
+                    sliderContent.style.animationPlayState = 'paused';
+                    
+                    // Kısa bir süre sonra yeniden başlat (animasyonun yeniden hesaplanması için)
+                    setTimeout(function() {
+                        checkMobile();
+                    }, 50);
+                } else {
+                    // Kayan bant olmasa da mobil kontrolü yap
+                    checkMobile();
+                }
+                
+                handleScroll(); // Scroll durumunu da güncelle
+            });
+            
+            
+            // Color Thief işlemlerinin tamamlandığından emin olmak için
+            // tüm kayan bant öğeleri yüklendikten sonra animasyonu tekrar başlat
+            if (sliderContent) {
+                setTimeout(function() {
+                    // Animasyonu kısa bir süre durdur
+                    sliderContent.style.animationPlayState = 'paused';
+                    
+                    // Sonra tekrar başlat
+                    setTimeout(function() {
+                        sliderContent.style.animationPlayState = 'running';
+                    }, 100);
+                }, 500);
+            }
+            
+            // Sayfa yüklendiğinde mobil veya masaüstü durumuna göre ayarları uygula
+            checkMobile();
+            
+            // Ekran boyutu değiştiğinde animasyonu resetle
+            window.addEventListener('resize', function() {
+                // Animasyonu durdur ve sıfırla
+                const sliderContent = document.getElementById('sliderContent');
+                if (sliderContent) {
+                    sliderContent.style.animationPlayState = 'paused';
+                    
+                    // Kısa bir süre sonra yeniden başlat (animasyonun yeniden hesaplanması için)
+                    setTimeout(function() {
+                        checkMobile();
+                    }, 50);
+                } else {
+                    // Kayan bant olmasa da mobil kontrolü yap
+                    checkMobile();
+                }
+                
+                handleScroll(); // Scroll durumunu da güncelle
+            });
+        });
 	    
     </script>
 </body>
