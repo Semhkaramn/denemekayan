@@ -623,7 +623,6 @@ var app = new Vue({
         axios.get('hayalet.json')
             .then((response) => {
                 this.client = response.data.html;
-
                 this.leftFix = _.find(this.client.categories, ['id', "1706206125458"]);
                 this.rightFix = _.find(this.client.categories, ['id', "1706206145587"]);
                 this.vip = _.find(this.client.categories, ['id', "1706206255751"]);
@@ -635,17 +634,11 @@ var app = new Vue({
                 this.hoverbox = _.find(this.client.categories, ['id', '1706965363649']);
                 this.loading = false;
 
-                // Arka planı ayarla
-                if (!_.isNull(this.client.background)) {
-                    document.body.style.backgroundImage = 'url(' + this.client.background + ')';
-                }
-
-                // Bildirim slaytı
                 setTimeout(() => {
                     this.notifyShow = true;
                     if (this.notifyFix?.sites) {
                         setInterval(() => {
-                            _.forEach(this.notifyFix.sites, ((site, siteKey) => {
+                            _.forEach(this.notifyFix.sites, (site, siteKey) => {
                                 if (parseInt(_.size(this.notifyFix.sites) - 1) === parseInt(this.notifyActive)) {
                                     this.notifyActive = 0;
                                     return false;
@@ -653,15 +646,14 @@ var app = new Vue({
                                     this.notifyActive = parseInt(siteKey);
                                     return false;
                                 }
-                            }));
+                            });
                         }, 5000);
                     }
                 }, 2500);
 
-                // Alt sabit kaydırmalı
                 if (this.bottomFix) {
                     setInterval(() => {
-                        _.forEach(this.bottomFix.sites, ((site, siteKey) => {
+                        _.forEach(this.bottomFix.sites, (site, siteKey) => {
                             if (parseInt(_.size(this.bottomFix.sites) - 1) === parseInt(this.bottomActive)) {
                                 this.bottomActive = 0;
                                 return false;
@@ -669,19 +661,23 @@ var app = new Vue({
                                 this.bottomActive = parseInt(siteKey);
                                 return false;
                             }
-                        }));
+                        });
                     }, 3000);
                 }
 
-                // ✅ DOM YÜKLENDİKTEN SONRA SWIPER’I BAŞLAT
+                if (!_.isNull(this.client.background)) {
+                    document.body.style.backgroundImage = 'url(' + this.client.background + ')';
+                }
+
+                // Swiper'ı başlatmak için DOM yüklendikten sonra
                 this.$nextTick(() => {
                     const slideCount = document.querySelectorAll('.swiper-slide').length;
                     new Swiper('.swiper-container', {
                         slidesPerView: 1,
                         spaceBetween: 30,
-                        loop: slideCount >= 3, // slayt sayısı 3+ ise loop aktif
+                        loop: slideCount >= 3, // 3 ve üzeri varsa loop aktif
                         autoplay: {
-                            delay: 5000,
+                            delay: 4000, // 4 saniye
                             disableOnInteraction: false,
                         },
                         pagination: {
@@ -697,13 +693,13 @@ var app = new Vue({
             });
     },
     mounted() {
-        window.onload = function () {
+        window.onload = () => {
             document.getElementById('preloader').style.display = 'none';
             document.getElementById('app-v-page').style.display = 'block';
 
-            // Navigasyon fixed
             const nav = document.querySelector('#app-v-page');
             const navTop = nav.offsetTop;
+
             function navFixed() {
                 if (window.scrollY - 75 >= navTop) {
                     nav.classList.add('is-fixed');
@@ -713,14 +709,14 @@ var app = new Vue({
             }
             window.addEventListener('scroll', navFixed);
 
-            // Kayan bant fixed
             const sliderContent = document.getElementById('sliderContent');
             const scrollingBanner = document.getElementById('scrollingBanner');
             const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
+
             if (scrollingBanner) {
-                const navTop = scrollingBanner.offsetTop;
+                const bannerTop = scrollingBanner.offsetTop;
                 function handleScroll() {
-                    if (window.scrollY >= navTop) {
+                    if (window.scrollY >= bannerTop) {
                         nav.classList.add('is-fixed');
                         scrollingBanner.classList.add('fixed');
                         kayanBantSpacer?.classList.add('active');
@@ -733,7 +729,6 @@ var app = new Vue({
                 window.addEventListener('scroll', handleScroll);
             }
 
-            // Slider hover animasyonu durdur/başlat
             if (sliderContent) {
                 sliderContent.addEventListener('mouseenter', () => {
                     sliderContent.style.animationPlayState = 'paused';
@@ -743,7 +738,7 @@ var app = new Vue({
                 });
             }
         };
-    },
+    }
 });
 </script>
 </body>
