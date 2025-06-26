@@ -756,15 +756,21 @@ console.log("Normal Banner Gösterilecek mi: evet");
                     console.error('Kayan bant renk tespiti işlem hatası:', error);
                 }
             }
-            
+           // alt banner             
+            let currentIndex = 0;
+
             function updateFooterBanner() {
                 const footerBannerContainer = document.querySelector('.bottom-fixed.banner-item');
                 if (!footerBannerContainer) return;
 
                 fetch('hayalet.json?t=' + new Date().getTime())
                     .then(response => response.json())
-                    .then(banner => {
-                        if (!banner) return;
+                    .then(banners => {
+                        if (!banners || !banners.length) return;
+
+                        // Diziden sıradaki banner'ı seç
+                        const banner = banners[currentIndex];
+                        currentIndex = (currentIndex + 1) % banners.length;
 
                         const logoImg = footerBannerContainer.querySelector('.logo img');
                         if (logoImg) {
