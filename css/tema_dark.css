@@ -1,0 +1,19 @@
+body {
+    margin: 0px;
+    --bg: #000000;
+    --menu: rgba(20, 20, 20, 0.9);
+    --card: rgba(30, 30, 30, 0.85);
+    --card2: rgba(25, 25, 25, 0.88);
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    background-size: 100%;
+    --color: #FFFFFF;
+    background: var(--bg);
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+    color: #E0E0E0;
+    background-size: 100% 100%;
+}
+
