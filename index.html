@@ -748,43 +748,50 @@ console.log("Normal Banner Gösterilecek mi: evet");
                     console.error('Kayan bant renk tespiti işlem hatası:', error);
                 }
             }
-
-            // Footer banner'ı 4 saniyede bir güncelle
-            function updateFooterBanner() {
-                const footerBannerContainer = document.querySelector('.bottom-fixed.banner-item');
-                if (!footerBannerContainer) return;
-                
-                fetch('index.php?get_footer_banner=1&t=' + new Date().getTime())
-                    .then(response => response.json())
-                    .then(banner => {
-                        if (!banner) return;
-                        
-                        // Banner içeriğini güncelle
-                        const logoImg = footerBannerContainer.querySelector('.logo img');
-                        if (logoImg) {
-                            logoImg.src = 'img/logo/' + banner.image;
-                            logoImg.onload = function() {
-                                applyDominantColor(logoImg, footerBannerContainer);
-                            };
-                        }
-                        
-                        const headerEl = footerBannerContainer.querySelector('h1');
-                        if (headerEl) headerEl.textContent = banner.header;
-                        
-                        const textEl = footerBannerContainer.querySelector('p');
-                        if (textEl) textEl.textContent = banner.sub_text;
-                        
-                        const linkEl = footerBannerContainer.querySelector('a');
-                        if (linkEl) linkEl.href = banner.link;
-                    })
-                    .catch(error => console.error('Footer banner güncelleme hatası:', error));
-            }
             
-            // İlk yüklemede ve sonra 4 saniyede bir footer banner'ı güncelle
-            if (document.querySelector('.bottom-fixed.banner-item')) {
-                updateFooterBanner();
-                setInterval(updateFooterBanner, 4000);
+            // Footer banner'ı 4 saniyede bir güncelle
+            let currentIndex = 0;
+
+            function updateFooterBannerFromSiteItems() {
+                const siteItems = document.querySelectorAll('.slider-content .site-item');
+                const footerBanner = document.querySelector('.bottom-fixed.banner-item');
+                if (!siteItems.length || !footerBanner) return;
+
+                // Dairesel sıra ile seçim
+                const selected = siteItems[currentIndex];
+                currentIndex = (currentIndex + 1) % siteItems.length;
+
+                // Verileri çıkar
+                const imgSrc = selected.querySelector('img')?.src;
+                const link = selected.href;
+                const text = selected.querySelector('.giris-btn')?.textContent.trim();
+
+                // Footer içeriğini güncelle
+                const logoImg = footerBanner.querySelector('.logo img');
+                if (logoImg) {
+                    logoImg.src = imgSrc;
+                    logoImg.onload = function () {
+                        applyDominantColor(logoImg, footerBanner);
+                    };
+                }
+
+                const headerEl = footerBanner.querySelector('h1');
+                if (headerEl) {
+                    headerEl.textContent = text || 'YENİ REKLAM';
+                }
+
+                const linkEl = footerBanner.querySelector('a');
+                if (linkEl) {
+                    linkEl.href = link;
+                }
             }
+
+            // Sayfa yüklendiğinde çalıştır ve 4 saniyede bir sırayla güncelle
+            document.addEventListener('DOMContentLoaded', function () {
+                updateFooterBannerFromSiteItems();
+                setInterval(updateFooterBannerFromSiteItems, 4000);
+            });
+
 
             // Swiper slider'ı başlat
             var swiper = new Swiper('.swiper-container', {
