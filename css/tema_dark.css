@@ -1,18 +1,17 @@
 body {
     margin: 0px;
-    --bg: #0E184E;
-    --menu: rgb(23, 34, 97);   /* #172261 */
-    --card: rgb(22, 33, 96);   /* #162160 */
-    --card2: rgb(17, 28, 79);  /* #111C4F */
+    --bg: linear-gradient(135deg, #2B1E59, #3B2B84); /* Mor-Lacivert Gradyan */
+    --menu: #392A74;   /* Menüyü biraz daha doygun mor yaptık */
+    --card: #322568;   /* Kartlarda yumuşak geçiş ton */
+    --card2: #271C50;  /* Daha koyu detay rengi */
+    --color: #F1F1F1;  /* Yazılar daha açık tonda */
     height: 100%;
     width: 100%;
     left: 0px;
     top: 0px;
-    background-size: 100%;
-    --color: #FFFFFF;
     background: var(--bg);
     background-attachment: fixed;
-    font-family: 'Montserrat', sans-serif;
-    color: #E0E0E0;
     background-size: 100% 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color);
 }
