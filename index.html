@@ -699,7 +699,6 @@
       window.addEventListener('scroll', navFixed);
 
       // Kayan bant scroll sabitleme
-      const sliderContent = document.getElementById('.slider-content');
       const scrollingBanner = document.getElementById('scrollingBanner');
       const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
       if (scrollingBanner) {
@@ -718,15 +717,18 @@
         window.addEventListener('scroll', handleScroll);
       }
 
-      // Hover ile animasyon durdurma/başlatma
-      if (sliderContent) {
-        sliderContent.addEventListener('mouseenter', () => {
-          sliderContent.style.animationPlayState = 'paused';
-        });
-        sliderContent.addEventListener('mouseleave', () => {
-          sliderContent.style.animationPlayState = 'running';
-        });
-      }
+      // DOM yüklendikten sonra hover animasyonu başlat/durdur
+      this.$nextTick(() => {
+        const sliderContent = document.getElementById('sliderContent');
+        if (sliderContent) {
+          sliderContent.addEventListener('mouseenter', () => {
+            sliderContent.style.animationPlayState = 'paused';
+          });
+          sliderContent.addEventListener('mouseleave', () => {
+            sliderContent.style.animationPlayState = 'running';
+          });
+        }
+      });
 
       // Swiper slider başlatma
       this.slider = new Swiper('.swiper-container', {
@@ -754,22 +756,19 @@
         if (!siteData || !siteData.color) return '';
 
         const hex = siteData.color;
-        const rgb = this.hexToRgb(hex); // RGB'ye dönüştür
+        const rgb = this.hexToRgb(hex);
         return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
       },
 
       hexToRgb(hex) {
-        hex = hex.replace(/^#/, ''); // Başındaki # işaretini çıkar
-
+        hex = hex.replace(/^#/, '');
         if (hex.length === 3) {
           hex = hex.split('').map(char => char + char).join('');
         }
-
         const bigint = parseInt(hex, 16);
         const r = (bigint >> 16) & 255;
         const g = (bigint >> 8) & 255;
         const b = bigint & 255;
-
         return `${r}, ${g}, ${b}`;
       }
     }
