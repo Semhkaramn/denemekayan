@@ -44,54 +44,207 @@
 
 }
 
-@keyframes marquee-desktop {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
+/* Özel Siteler Bölümü Stilleri */
 .ozel-siteler-banner {
-  overflow: hidden;
-  white-space: nowrap;
-  background: #0E184E;
-  padding: 10px 0;
-  position: relative;
-  z-index: 10;
+    width: 100%;
+    position: relative;
+    z-index: 995; /* Header'ın altında olması için */
+    transition: all 0.3s ease;
+    padding: 10px 0;
+    overflow: hidden;
+    will-change: transform; /* Performans optimizasyonu */
+    background-color: var(--menu, rgba(48, 48, 48, 0.6)); /* Varsayılan olarak yarı saydam gri */
+    backdrop-filter: blur(0px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.ozel-siteler-slider .slider-content {
-  display: inline-block;
-  animation: marquee-desktop 30s linear infinite;
-}
+
 .ozel-siteler-banner.fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+    position: fixed;
+    top: 70px; /* Header'ın yüksekliği 70px */
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Header fixed background ile aynı ton */
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    transition: all ease 0.4s;
 }
+
+/* Header fixed olduğunda ekstra boşluk için */
 .kayan-bant-spacer {
-  display: none;
-  height: 60px;
+    display: none;
+    height: 62px; /* Kayan bant yüksekliği + padding */
 }
+
 .kayan-bant-spacer.active {
-  display: block;
+    display: block;
 }
+
+.ozel-siteler-container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.ozel-siteler-slider {
+    display: flex;
+    gap: 15px;
+    padding: 5px 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* Ana animasyon - masaüstü için (sağdan başlar) */
+@keyframes marquee-desktop {
+    0% {
+        transform: translateX(100%); /* Ekranın sağından başla */
+    }
+    100% {
+        transform: translateX(-100%); /* Sola doğru kayıp git */
+    }
+}
+
+/* Mobil cihazlar için animasyon (sağdan başlar ama direkt ekranda görünür) */
+@keyframes marquee-mobile {
+    0% {
+        transform: translateX(5%); /* Sağdan başla ama direkt ekranda görünür olsun */
+    }
+    100% {
+        transform: translateX(-100%); /* Sola doğru tamamen kayıp git */
+    }
+}
+
+/* Varsayılan olarak masaüstü animasyonu kullan */
+.slider-content {
+    display: flex;
+    gap: 40px;
+    padding: 5px 0;
+    white-space: nowrap;
+    width: max-content;
+    position: relative;
+    will-change: transform; /* Performans optimizasyonu */
+    animation: marquee-desktop 15s linear infinite; /* Masaüstünde daha da hızlı olması için 15s */
+}
+
 .site-item {
-  display: inline-block;
-  margin-right: 30px;
-  position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 15px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    --band-color: #FF9900; /* Varsayılan renk */
+    --band-color-rgb: 255, 153, 0; /* Varsayılan RGB değerleri */
 }
+
+.site-item:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 10%, rgba(var(--band-color-rgb), 0.4) 60%, rgba(var(--band-color-rgb), 0.8) 100%);
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.site-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.site-item:hover:before {
+    opacity: 0.25;
+}
+
 .site-item img {
-  height: 50px;
-  border-radius: 10px;
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    border-radius: 5px;
 }
+
 .giris-btn {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #e91e63;
-  color: white;
-  padding: 3px 10px;
-  border-radius: 5px;
-  font-size: 12px;
+    background: var(--band-color);
+    text-align: center;
+    border-radius: 30px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.site-item:hover .giris-btn {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .ozel-siteler-banner {
+        padding: 6px 0;
+    }
+    
+    .ozel-siteler-banner.fixed {
+        top: 70px; /* Header yüksekliği ile aynı */
+    }
+    
+    .kayan-bant-spacer {
+        height: 52px; /* Mobilde daha küçük yükseklik */
+    }
+    
+    .slider-content {
+        gap: 15px;
+        animation: marquee-mobile 25s linear infinite; /* Mobil animasyonu kullan */
+    }
+    
+    .site-item {
+        padding: 3px 10px;
+    }
+    
+    .site-item img {
+        height: 30px;
+        margin-right: 8px;
+    }
+    
+    .giris-btn {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+}
+
+/* Çok küçük ekranlar için ek düzenlemeler */
+@media (max-width: 480px) {
+    .ozel-siteler-banner.fixed {
+        top: 50px; /* Daha küçük ekranlarda header daha küçük olabilir */
+    }
+    
+    .site-item img {
+        height: 25px;
+        margin-right: 6px;
+    }
+    
+    .slider-content {
+        animation: marquee-mobile 22s linear infinite; /* Mobil animasyonu kullan */
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
 }
 
 .img-container {
@@ -306,17 +459,17 @@
                 <div class="swiper-wrapper">
                                                             <div class="swiper-slide">
                         <a href="https://shortbal.online/aksiyoncasino" target="_blank">
-                            <img src="img/slider/1749934313_IMG_4560.png" width="100%">
+                            <img src="https://karaeskisiteler.com/img/slider/1749945856_IMG_4571.jpeg" width="100%">
                         </a>
                     </div>
                                                                                 <div class="swiper-slide">
                         <a href="https://cutt.ly/BrWekmo9" target="_blank">
-                            <img src="img/slider/1750143689_IMG_4601.jpeg" width="100%">
+                            <img src="https://karaeskisiteler.com/img/slider/1749934313_IMG_4560.png" width="100%">
                         </a>
                     </div>
                                                                                 <div class="swiper-slide">
                         <a href="https://shortbal.online/araeskicasino" target="_blank">
-                            <img src="img/slider/1749945856_IMG_4571.jpeg" width="100%">
+                            <img src="https://karaeskisiteler.com/img/slider/1750143689_IMG_4601.jpeg" width="100%">
                         </a>
                     </div>
                                                         </div>
