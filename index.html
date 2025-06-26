@@ -683,31 +683,30 @@
 
     mounted() {
       // Preloader ve görünürlük ayarı
-        document.getElementById('preloader').style.display = 'none';
-        document.getElementById('app-v-page').style.display = 'block';
+      document.getElementById('preloader').style.display = 'none';
+      document.getElementById('app-v-page').style.display = 'block';
 
-        var nav = document.querySelector('#app-v-page');
-        var navTop = nav.offsetTop;
+      var nav = document.querySelector('#app-v-page');
+      var navTop = nav.offsetTop;
 
-        function navFixed(e) {
-          if (window.scrollY - 75 >= navTop) {
-            document.querySelector('#app-v-page').classList.add('is-fixed');
-          } else {
-            document.querySelector('#app-v-page').classList.remove('is-fixed');
-          }
+      function navFixed(e) {
+        if (window.scrollY - 75 >= navTop) {
+          document.querySelector('#app-v-page').classList.add('is-fixed');
+        } else {
+          document.querySelector('#app-v-page').classList.remove('is-fixed');
         }
-        window.addEventListener('scroll', navFixed);
       }
+      window.addEventListener('scroll', navFixed);
 
       // Kayan bant scroll ve hover kontrolü
       const sliderContent = document.getElementById('sliderContent');
       const scrollingBanner = document.getElementById('scrollingBanner');
       const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
       if (scrollingBanner) {
-        const navTop = scrollingBanner.offsetTop;
+        const navTopBanner = scrollingBanner.offsetTop;
 
         function handleScroll() {
-          if (window.scrollY >= navTop) {
+          if (window.scrollY >= navTopBanner) {
             document.querySelector('#app-v-page').classList.add('is-fixed');
             scrollingBanner.classList.add('fixed');
             kayanBantSpacer.classList.add('active');
