@@ -31,8 +31,7 @@
     <meta property="og:image" content="https://www.casinohayalet.com/img/siteicon.png" />
     <!-- İçerik tipi -->
     <meta property="og:type" content="website" />
-
-</script>
+	
 </head>
 <body>
 <style>
@@ -816,29 +815,29 @@
           }
       });
 
-    methods: {
-      getSiteStyle(siteKey) {
-        const siteData = _.find(this.client.sites, ['site', siteKey]);
-        if (!siteData || !siteData.color) return '';
+      methods: {
+        getSiteStyle(siteKey) {
+          const siteData = _.find(this.client.sites, ['site', siteKey]);
+          if (!siteData || !siteData.color) return '';
 
-        const hex = siteData.color;
-        const rgb = this.hexToRgb(hex);
-        return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
-      },
+          const hex = siteData.color;
+          const rgb = this.hexToRgb(hex);
+          return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
+        },
 
-      hexToRgb(hex) {
-        hex = hex.replace(/^#/, '');
-        if (hex.length === 3) {
-          hex = hex.split('').map(char => char + char).join('');
+        hexToRgb(hex) {
+          hex = hex.replace(/^#/, '');
+          if (hex.length === 3) {
+            hex = hex.split('').map(char => char + char).join('');
+          }
+          const bigint = parseInt(hex, 16);
+          const r = (bigint >> 16) & 255;
+          const g = (bigint >> 8) & 255;
+          const b = bigint & 255;
+          return `${r}, ${g}, ${b}`;
         }
-        const bigint = parseInt(hex, 16);
-        const r = (bigint >> 16) & 255;
-        const g = (bigint >> 8) & 255;
-        const b = bigint & 255;
-        return `${r}, ${g}, ${b}`;
       }
-    }
-  });
+    });
 </script>
 </body>
 </html>
