@@ -1,234 +1,47 @@
-{
-    "status": true,
-    "html": {
-        "logo": "https:\/\/resim.girlink.me\/mainlogo.png",
-        "sites": [
-            {
-                "url": "https:\/\/cutt.ly\/erQniPqh",
-                "desc": [
-                    "250 TL DENEME BONUSU",
-                    "%30 CASİNO KAYIP BONUSU"
-                ],
-                "site": "bankobet",
-                "sort": "null",
-                "color": "#b91560",
-                "sitepic": "..\/img\/logo\/bankobet.png"
-            },
-            {
-                "url": "https:\/\/casinoroys.ws\/hayalet",
-                "desc": [
-                    "½300 HOŞGELDİN BONUSU",
-                    "%30 KAYIP BONUSU"
-                ],
-                "site": "casinoroys",
-                "sort": "null",
-                "color": "#6d4f80",
-                "sitepic": "..\/img\/logo\/casinoroys.png"
-            },
-            {
-                "url": "https:\/\/partner.mersoaff.com\/imp\/mersobahis\/1704",
-                "desc": [
-                    "25 TL DENEME BONUSU",
-                    "%20 KAYIP BONUSU"
-                ],
-                "site": "mersobahis",
-                "sort": "null",
-                "color": "#181818",
-                "sitepic": "..\/img\/logo\/mersobahis.png"
-            },
-            {
-                "url": "https:\/\/wanderer-wing.com\/s4518f2db",
-                "desc": [
-                    "DENEME BONUSU",
-                    "KAYIP BONUSU"
-                ],
-                "site": "alev",
-                "sort": "null",
-                "color": "#600917",
-                "sitepic": "..\/img\/logo\/alev.png"
-            },
-            {
-                "url": "https:\/\/shortbal.online\/aksiyoncasino",
-                "desc": [
-                    "500₺ DENEME BONUSU",
-                    "%20 KAYIP BONUSU"
-                ],
-                "site": "grandpasha",
-                "sort": "null",
-                "color": "#fff980",
-                "sitepic": "..\/img\/logo\/grandpasha.png"
-            },
-            {
-                "url": "https:\/\/kroyal.win\/t95de5461",
-                "desc": [
-                    "500 FREESPİN DENEME BONUSU",
-                    "%10 KAYIP BONUSU"
-                ],
-                "site": "meritking",
-                "sort": "null",
-                "color": "#ecb50d",
-                "sitepic": "..\/img\/logo\/meritking.png"
-            },
-            {
-                "url": "https:\/\/cutt.ly\/2411878",
-                "desc": [
-                    "250₺ DENEME BONUSU",
-                    "%30 KAYIP BONUSU"
-                ],
-                "site": "betovis",
-                "sort": "null",
-                "color": "#98051b",
-                "sitepic": "..\/img\/logo\/betovis.png"
-            },
-            {
-                "url": "https:\/\/t2m.co\/Hayalet",
-                "desc": [
-                    "500₺ DENEME BONUSU",
-                    "%100 HOŞ GELDİN BONUSU"
-                ],
-                "site": "bahisen",
-                "sort": "null",
-                "color": "#3173da",
-                "sitepic": "..\/img\/logo\/bahisen.png"
-            }
-        ],
-        "social": {
-            "telegram": "https:\/\/t.me\/HAYALET7777",
-            "instagram": "https:\/\/www.instagram.com\/"
-        },
-        "cdn_url": "https:\/\/semhkaramn.github.io\/hayalet\/img\/logo\/",
-        "is_slider": true,
-        "background": null,
-        "categories": [
-            {
-                "id": "1706206125458",
-                "svg": null,
-                "grid": "1",
-                "name": "Sol Fix",
-                "sort": "1",
-                "sites": [
-                    {
-                        "site": "bankobet",
-                        "sort": "1"
-                    }
-                ]
-            },
-            {
-                "id": "1706206145587",
-                "svg": null,
-                "grid": "1",
-                "name": "Sa\u011f Fix",
-                "sort": "1",
-                "sites": [
-                    {
-                        "site": "bahisen",
-                        "sort": "1"
-                    }
-                ]
-            },
-            {
-                "id": "1706965363649",
-                "name": "4 animasyonlu siteler",
-                "sites": [
-                    {
-                        "site": "bahisen",
-                        "sort": "2",
-                        "bg": "2.jpg"
-                    },
-                    {
-                        "site": "casinoroys",
-                        "sort": "3",
-                        "bg": "3.jpg"
-                    },
-                    {
-                        "site": "bankobet",
-                        "sort": "4",
-                        "bg": "4.jpg"
-                    },
-                    {
-                        "site": "mersobahis",
-                        "sort": "4",
-                        "bg": "4.jpg"
-                    }
-                ]
-            },
-            {
-                "id": "1706206255751",
-                "svg": null,
-                "grid": "4",
-                "name": "\u00dcst Alan VIP",
-                "sort": "1",
-                "sites": [
-                    {
-                        "site": "grandpasha",
-                        "sort": "1"
-                    },
-                    {
-                        "site": "betovis",
-                        "sort": "2"
-                    },
-                    {
-                        "site": "alev",
-                        "sort": "3"
-                    },
-                    {
-                        "site": "meritking",
-                        "sort": "4"
-                    }
-                ]
-            },
-            {
-                "id": "1706406420307",
-                "svg": null,
-                "grid": "1",
-                "name": "Alt Fix",
-                "sort": "1",
-                "sites": [
-                    {
-                        "site": "bahisen",
-                        "sort": "3"
-                    }
-                ]
-            },
-            {
-                "id": "1706406449314",
-                "svg": null,
-                "grid": "1",
-                "name": "Bildiri Reklam\u0131",
-                "sort": "1",
-                "sites": [
-                    {
-                        "site": "bahisen",
-                        "sort": "1"
-                    }
-                ]
-            },
-            {
-                "id": "1710236499016",
-                "name": "Kayan Bant",
-                "sites": [
-                    {
-                        "site": "bahisen",
-                        "sort": "1"
-                    },
-                    {
-                        "site": "meritking",
-                        "sort": "2"
-                    },
-                    {
-                        "site": "casinoroys",
-                        "sort": "5"
-                    },
-                    {
-                        "site": "alev",
-                        "sort": "3"
-                    },
-                    {
-                        "site": "mersobahis",
-                        "sort": "4"
-                    }
-                ]
-            }
-        ]
-    }
-}
+[
+  {
+    "id": 1,
+    "header": "REKLAM",
+    "sub_text": "",
+    "image": "img/banner/reklam.png",
+    "link": "https://t.me/HAYALET7777",
+    "level": 1,
+    "sira_no": 1
+  },
+  {
+    "id": 2,
+    "header": "GİRİŞ YAP",
+    "sub_text": "",
+    "image": "img/logo/bankobet.png",
+    "link": "https://cutt.ly/erQniPqh",
+    "level": 1,
+    "sira_no": 2
+  },
+  {
+    "id": 3,
+    "header": "GİRİŞ YAP",
+    "sub_text": "",
+    "image": "img/logo/casinoroys.png",
+    "link": "https://casinoroys.ws/hayalet",
+    "level": 1,
+    "sira_no": 3
+  },
+  {
+    "id": 4,
+    "header": "GİRİŞ YAP",
+    "sub_text": "",
+    "image": "img/logo/mersobahis.png",
+    "link": "https://partner.mersoaff.com/imp/mersobahis/1704",
+    "level": 1,
+    "sira_no": 4
+  },
+  {
+    "id": 5,
+    "header": "GİRİŞ YAP",
+    "sub_text": "",
+    "image": "img/logo/grandpasha.png",
+    "link": "https://shortbal.online/aksiyoncasino",
+    "level": 1,
+    "sira_no": 5
+  }
+]
