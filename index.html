@@ -718,17 +718,22 @@
       }
 
       // DOM yüklendikten sonra hover animasyonu başlat/durdur
-      this.$nextTick(() => {
-        const sliderContent = document.getElementById('sliderContent');
-        if (sliderContent) {
-          sliderContent.addEventListener('mouseenter', () => {
-            sliderContent.style.animationPlayState = 'paused';
-          });
-          sliderContent.addEventListener('mouseleave', () => {
-            sliderContent.style.animationPlayState = 'running';
-          });
-        }
-      });
+        this.$nextTick(() => {
+            this.$watch('strip', (newVal) => {
+                if (newVal) {
+                    const sliderContent = document.getElementById('sliderContent');
+                    if (sliderContent) {
+                        sliderContent.addEventListener('mouseenter', () => {
+                            sliderContent.style.animationPlayState = 'paused';
+                        });
+                        sliderContent.addEventListener('mouseleave', () => {
+                            sliderContent.style.animationPlayState = 'running';
+                        });
+                    }
+                }
+            });
+        });
+
 
       // Swiper slider başlatma
       this.slider = new Swiper('.swiper-container', {
