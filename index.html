@@ -585,62 +585,102 @@ html, body {
               <div class="img-container" id="hover-sites"></div>
 	      <div id="vip-sites" class="row"></div>
 
- <script>
-  const hoverSites = document.getElementById("hover-sites");
-  const vipSites = document.getElementById("vip-sites");
-  const colorThief = new ColorThief();
+<script>
+const hoverSites = document.getElementById("hover-sites");
+const vipSites = document.getElementById("vip-sites");
 
-  fetch("hayalet.json")
-    .then(res => res.json())
-    .then(data => {
-      data.sort((a, b) => a.sira_no - b.sira_no);
-
-      data.forEach(site => {
-        const img = new Image();
-        img.src = `img/logo/${site.image}`;
-        img.crossOrigin = "Anonymous"; // CDN'den geliyorsa bu gerekli
-
-        img.onload = () => {
-          let rgb = [0, 0, 0];
-          try {
-            rgb = colorThief.getColor(img);
-          } catch (e) {
-            console.warn("Renk alınamadı:", site.image);
-          }
-          const hexColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-
-          // Hover kutusu
-          hoverSites.innerHTML += `
-            <div class="img-box">
-              <img src="img/logo/${site.image}" class="background-img">
-              <a href="${site.link}" target="_blank">
-                <img src="img/logo/${site.image}" class="overlay-img">
-                <div class="hovertext">${site.header}<br>${site.sub_text || ''}</div>
-              </a>
-            </div>
-          `;
-
-          // VIP kutusu
-          vipSites.innerHTML += `
-            <div class="col">
-              <a href="${site.link}" target="_blank" class="item banner-item" style="--site-color: ${hexColor}">
-                <div class="left">
-                  <img src="img/logo/${site.image}" width="150">
-                  <div class="text">
-                    ${site.header}
-                    <div><small>${site.sub_text || ''}</small></div>
-                  </div>
-                  <div class="button">GİRİŞ YAP</div>
-                </div>
-                <div class="vip-img"><img src="img/vip.png" width="100"></div>
-              </a>
-            </div>
-          `;
-        };
+fetch('hayalet.json')
+  .then(res => res.json())
+  .then(data => {
+    const { sites, categories, cdn_url } = data.html;
+    
+    // Örnek: "4 animasyonlu siteler" kategorisini bul
+    const animasyonKategori = categories.find(cat => cat.name === "4 animasyonlu siteler");
+    if (animasyonKategori) {
+      animasyonKategori.sites.forEach(({ site: siteName, bg }) => {
+        const site = sites.find(s => s.site === siteName);
+        if (!site) return;
+        
+        hoverSites.innerHTML += `
+          <div class="img-box">
+            <img src="${cdn_url}${bg}" class="background-img">
+            <a href="${site.url}" target="_blank">
+              <img src="${site.sitepic}" class="overlay-img">
+              <div class="hovertext">${site.desc[0]}<br>${site.desc[1]}</div>
+            </a>
+          </div>
+        `;
       });
-    })
-    .catch(err => console.error("JSON verisi çekilemedi:", err));
+    }
+
+    // Örnek: "Üst Alan VIP" kategorisini bul
+    const vipKategori = categories.find(cat => cat.name === "Üst Alan VIP");
+    if (vipKategori) {
+      vipKategori.sites.forEach(({ site: siteName }) => {
+        const site = sites.find(s => s.site === siteName);
+        if (!site) return;
+
+        vipSites.innerHTML += `
+          <div class="col">
+            <a href="${site.url}" target="_blank" class="item banner-item" style="--site-color: ${site.color}">
+              <div class="left">
+                <img src="${site.sitepic}" width="150">
+                <div class="text">
+                  ${site.desc[0]}
+                  <div><small>${site.desc[1]}</small></div>
+                </div>
+                <div class="button">GİRİŞ YAP</div>
+              </div>
+              <div class="vip-img"><img src="img/vip.png" width="100"></div>
+            </a>
+          </div>
+        `;
+      });
+    }
+
+  })
+  .catch(err => console.error("JSON çekilirken hata oluştu:", err));
+
+fetch('hayalet.json')
+  .then(res => res.json())
+  .then(data => {
+    const { sites, categories, cdn_url } = data.html;
+
+    // Örnek olarak "Üst Alan VIP" kategorisindeki siteler için
+    const vipKategori = categories.find(cat => cat.name === "Üst Alan VIP");
+    if (vipKategori) {
+      vipKategori.sites.forEach(({ site: siteName }) => {
+        const site = sites.find(s => s.site === siteName);
+        if (!site) return;
+
+        const container = document.createElement('div');
+        container.classList.add('col');
+
+        container.innerHTML = `
+          <a href="${site.url}" target="_blank" class="item banner-item" style="--site-color: #ccc">
+            <div class="left">
+              <img src="${cdn_url}${site.sitepic}" width="150" crossorigin="anonymous" class="site-img">
+              <div class="text">
+                ${site.desc[0]}
+                <div><small>${site.desc[1]}</small></div>
+              </div>
+              <div class="button">GİRİŞ YAP</div>
+            </div>
+            <div class="vip-img"><img src="img/vip.png" width="100"></div>
+          </a>
+        `;
+
+        // Önce DOM'a ekle
+        document.getElementById('vip-sites').appendChild(container);
+
+        // Color Thief ile renk tespiti yap
+        const img = container.querySelector('.site-img');
+        applyDominantColor(img, container.querySelector('.item.banner-item'));
+      });
+    }
+  });
 </script>
+
 
 
                 <div class="row vip banner4" id="vip-sites"></div>
