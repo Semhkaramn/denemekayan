@@ -24,10 +24,10 @@
         "color": "#181818"
       },
       {
-        "site": "grandpasha",
-        "url": "https://shortbal.online/aksiyoncasino",
+        "site": "bahisen",
+        "url": "https://t2m.co/Hayalet",
         "desc": ["500₺ DENEME BONUSU", "%20 KAYIP BONUSU"],
-        "sitepic": "img/logo/grandpasha.png",
+        "sitepic": "img/logo/bahisen.png",
         "color": "#fff980"
       }
     ],
@@ -38,7 +38,7 @@
           { "site": "bankobet", "bg": "bankobet.jpg" },
           { "site": "casinoroys", "bg": "casinoroys.jpg" },
           { "site": "mersobahis", "bg": "mersobahis.jpg" },
-          { "site": "grandpasha", "bg": "grandpasha.jpg" }
+          { "site": "bahisen", "bg": "bahisen.jpg" }
         ]
       }
     ]
