@@ -757,48 +757,39 @@ console.log("Normal Banner Gösterilecek mi: evet");
                 }
             }
             
-            // Footer banner'ı 4 saniyede bir güncelle
-            let currentIndex = 0;
+            function updateFooterBanner() {
+                const footerBannerContainer = document.querySelector('.bottom-fixed.banner-item');
+                if (!footerBannerContainer) return;
 
-            function updateFooterBannerFromSiteItems() {
-                const siteItems = document.querySelectorAll('.slider-content .site-item');
-                const footerBanner = document.querySelector('.bottom-fixed.banner-item');
-                if (!siteItems.length || !footerBanner) return;
+                fetch('hayalet.json?t=' + new Date().getTime())
+                    .then(response => response.json())
+                    .then(banner => {
+                        if (!banner) return;
 
-                // Dairesel sıra ile seçim
-                const selected = siteItems[currentIndex];
-                currentIndex = (currentIndex + 1) % siteItems.length;
+                        const logoImg = footerBannerContainer.querySelector('.logo img');
+                        if (logoImg) {
+                            logoImg.src = 'img/banner/' + banner.image;
+                            logoImg.onload = function() {
+                                applyDominantColor(logoImg, footerBannerContainer);
+                            };
+                        }
 
-                // Verileri çıkar
-                const imgSrc = selected.querySelector('img')?.src;
-                const link = selected.href;
-                const text = selected.querySelector('.giris-btn')?.textContent.trim();
+                        const headerEl = footerBannerContainer.querySelector('h1');
+                        if (headerEl) headerEl.textContent = banner.header;
 
-                // Footer içeriğini güncelle
-                const logoImg = footerBanner.querySelector('.logo img');
-                if (logoImg) {
-                    logoImg.src = imgSrc;
-                    logoImg.onload = function () {
-                        applyDominantColor(logoImg, footerBanner);
-                    };
-                }
+                        const textEl = footerBannerContainer.querySelector('p');
+                        if (textEl) textEl.textContent = banner.sub_text;
 
-                const headerEl = footerBanner.querySelector('h1');
-                if (headerEl) {
-                    headerEl.textContent = text || 'YENİ REKLAM';
-                }
-
-                const linkEl = footerBanner.querySelector('a');
-                if (linkEl) {
-                    linkEl.href = link;
-                }
+                        const linkEl = footerBannerContainer.querySelector('a');
+                        if (linkEl) linkEl.href = banner.link;
+                    })
+                    .catch(error => console.error('Footer banner güncelleme hatası:', error));
             }
 
-            // Sayfa yüklendiğinde çalıştır ve 4 saniyede bir sırayla güncelle
-            document.addEventListener('DOMContentLoaded', function () {
-                updateFooterBannerFromSiteItems();
-                setInterval(updateFooterBannerFromSiteItems, 4000);
-            });
+            if (document.querySelector('.bottom-fixed.banner-item')) {
+                updateFooterBanner();
+                setInterval(updateFooterBanner, 4000);
+            }
 
 
             // Swiper slider'ı başlat
