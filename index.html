@@ -31,68 +31,67 @@
     <meta property="og:image" content="https://www.casinohayalet.com/img/siteicon.png" />
     <!-- İçerik tipi -->
     <meta property="og:type" content="website" />
-	
+
+</script>
 </head>
 <body>
 <style>
 
-#swiper {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
 #swiper img {
     width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 15px;
-}
-
-@media (max-width:762px) {
-
-    .swiper-custom {
-        width: 100%;
-        height: 100px;
-        object-fit: cover;
-    }
-}
-
-
-/* Swiper düzenlemeleri */
-.swiper-container {
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-.swiper-slide {
-    border-radius: 15px;
-    overflow: hidden;
-    margin: 0 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.swiper-slide img {
-    width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 15px;
+    display: block;
+}
+@media (max-width:762px) {
+
+    #swiper {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    }
 }
 
-/* Mobil uyumluluk */
+
+/* Swiper container için genel düzenlemeler */
+.swiper-container {
+    width: 100%;
+    height: auto;
+    padding: 0 15px; /* Mobilde yanlara boşluk ekler */
+    box-sizing: border-box; /* Padding'i genişliğe dahil eder */
+}
+
+/* Swiper slide için düzenlemeler */
+.swiper-slide {
+    border-radius: 15px; /* Köşeleri yuvarlak yapar */
+    overflow: hidden; /* İçeriklerin yuvarlak köşeleri aşmasını engeller */
+    margin: 0 5px; /* Slide'lar arasına boşluk ekler */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Swiper slide içindeki resimler */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px; /* Resim köşelerini yuvarlak yapar */
+}
+
+/* Mobil görünüm için özel ayarlar */
 @media (max-width: 768px) {
     .swiper-container {
-        padding: 0 10px;
+        padding: 0 10px; /* Mobilde daha az yan boşluk */
     }
+    
     .swiper-slide {
-        border-radius: 10px;
+        border-radius: 10px; /* Mobilde biraz daha küçük yuvarlaklık */
     }
+    
     .swiper-slide img {
-        border-radius: 10px;
-        height: 150px;
+        border-radius: 10px; /* Mobilde resim köşeleri */
     }
 }
-	
+
 /* Çok küçük ekranlar için ek düzenlemeler */
 @media (max-width: 480px) {
     .swiper-container {
@@ -663,6 +662,7 @@
 <script>
   var app = new Vue({
     el: '#app-v-page',
+
     data() {
       return {
         strip: null,
@@ -681,6 +681,7 @@
         client: {},
       };
     },
+
     created() {
       this.loading = true;
       axios.get('hayalet.json')
@@ -699,32 +700,32 @@
 
           setTimeout(() => {
             this.notifyShow = true;
-            if (this.notifyFix?.sites) {
+            if (this.notifyFix != null && this.notifyFix.sites != null) {
               setInterval(() => {
-                _.forEach(this.notifyFix.sites, (site, siteKey) => {
-                  if (this.notifyActive >= _.size(this.notifyFix.sites) - 1) {
+                _.forEach(this.notifyFix.sites, ((site, siteKey) => {
+                  if (parseInt(_.size(this.notifyFix.sites) - 1) == parseInt(this.notifyActive)) {
                     this.notifyActive = 0;
                     return false;
                   } else if (this.notifyActive < siteKey) {
                     this.notifyActive = parseInt(siteKey);
                     return false;
                   }
-                });
+                }));
               }, 5000);
             }
           }, 2500);
 
-          if (this.bottomFix?.sites) {
+          if (this.bottomFix != null) {
             setInterval(() => {
-              _.forEach(this.bottomFix.sites, (site, siteKey) => {
-                if (this.bottomActive >= _.size(this.bottomFix.sites) - 1) {
+              _.forEach(this.bottomFix.sites, ((site, siteKey) => {
+                if (parseInt(_.size(this.bottomFix.sites) - 1) == parseInt(this.bottomActive)) {
                   this.bottomActive = 0;
                   return false;
                 } else if (this.bottomActive < siteKey) {
                   this.bottomActive = parseInt(siteKey);
                   return false;
                 }
-              });
+              }));
             }, 3000);
           }
 
@@ -733,104 +734,103 @@
           }
         });
     },
+
     mounted() {
+      // Preloader ve görünürlük ayarı
       document.getElementById('preloader').style.display = 'none';
       document.getElementById('app-v-page').style.display = 'block';
 
+      // Navbar scroll sabitleme
       const nav = document.querySelector('#app-v-page');
-      const navTop = 100;
-
-      const scrollingBanner = document.querySelector('.ozel-siteler-banner');
-      const sliderContent = document.getElementById('sliderContent');
-      const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
-
-      function handleScroll() {
-        if (window.scrollY >= navTop) {
+      const navTop = nav.offsetTop;
+      const navFixed = () => {
+        if (window.scrollY - 75 >= navTop) {
           nav.classList.add('is-fixed');
-          scrollingBanner?.classList.add('fixed');
-          kayanBantSpacer?.classList.add('active');
         } else {
           nav.classList.remove('is-fixed');
-          scrollingBanner?.classList.remove('fixed');
-          kayanBantSpacer?.classList.remove('active');
-        }
-      }
-
-      window.addEventListener('scroll', handleScroll);
-      handleScroll();
-
-      // Swiper (Karaeski ayarları)
-      this.slider = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-      });
-
-      // Slider animasyon kontrol
-      if (sliderContent) {
-        sliderContent.addEventListener('mouseenter', () => {
-          sliderContent.style.animationPlayState = 'paused';
-        });
-        sliderContent.addEventListener('mouseleave', () => {
-          sliderContent.style.animationPlayState = 'running';
-        });
-      }
-
-      const checkMobile = () => {
-        const isMobile = this.is_mobile;
-        const appPage = document.getElementById('app-v-page');
-        appPage?.classList.toggle('mobile', isMobile);
-
-        if (sliderContent) {
-          if (isMobile) {
-            sliderContent.style.animationDuration = window.innerWidth <= 480 ? '18s' : '20s';
-            sliderContent.style.animationName = 'marquee-mobile';
-            sliderContent.style.transform = 'translateX(5%)';
-          } else {
-            sliderContent.style.animationDuration = '15s';
-            sliderContent.style.animationName = 'marquee-desktop';
-            sliderContent.style.transform = 'translateX(100%)';
-          }
-          sliderContent.style.animationPlayState = 'running';
         }
       };
+      window.addEventListener('scroll', navFixed);
 
-      checkMobile();
-      window.addEventListener('resize', () => {
-        if (sliderContent) {
-          sliderContent.style.animationPlayState = 'paused';
-          setTimeout(() => checkMobile(), 50);
-        } else {
-          checkMobile();
-        }
-        handleScroll();
+      // Kayan bant scroll sabitleme
+      const scrollingBanner = document.getElementById('scrollingBanner');
+      const kayanBantSpacer = document.querySelector('.kayan-bant-spacer');
+      if (scrollingBanner) {
+        const navTopBanner = scrollingBanner.offsetTop;
+        const handleScroll = () => {
+          if (window.scrollY >= navTopBanner) {
+            nav.classList.add('is-fixed');
+            scrollingBanner.classList.add('fixed');
+            kayanBantSpacer.classList.add('active');
+          } else {
+            nav.classList.remove('is-fixed');
+            scrollingBanner.classList.remove('fixed');
+            kayanBantSpacer.classList.remove('active');
+          }
+        };
+        window.addEventListener('scroll', handleScroll);
+      }
+
+      // DOM yüklendikten sonra hover animasyonu başlat/durdur
+        this.$nextTick(() => {
+            this.$watch('strip', (newVal) => {
+                if (newVal) {
+                    const sliderContent = document.getElementById('sliderContent');
+                    if (sliderContent) {
+                        sliderContent.addEventListener('mouseenter', () => {
+                            sliderContent.style.animationPlayState = 'paused';
+                        });
+                        sliderContent.addEventListener('mouseleave', () => {
+                            sliderContent.style.animationPlayState = 'running';
+                        });
+                    }
+                }
+            });
+        });
+
+      
+      // Swiper slider başlatma
+      this.slider = new Swiper('.swiper-container', {
+          slidesPerView: 1,
+          spaceBetween: 15, // Slide'lar arası boşluk
+          loop: true,
+          centeredSlides: true, // Slide'ları ortalar
+          pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+          },
+          navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+          },
+          autoplay: {
+              delay: 5000,
+              disableOnInteraction: false,
+          },
+          breakpoints: {
+              // 768px ve üzeri ekranlar için
+              768: {
+                  spaceBetween: 30,
+                  centeredSlides: false
+              }
+          }
       });
 
-      window.addEventListener('load', checkMobile);
-    },
     methods: {
       getSiteStyle(siteKey) {
         const siteData = _.find(this.client.sites, ['site', siteKey]);
         if (!siteData || !siteData.color) return '';
+
         const hex = siteData.color;
         const rgb = this.hexToRgb(hex);
         return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
       },
+
       hexToRgb(hex) {
         hex = hex.replace(/^#/, '');
-        if (hex.length === 3) hex = hex.split('').map(char => char + char).join('');
+        if (hex.length === 3) {
+          hex = hex.split('').map(char => char + char).join('');
+        }
         const bigint = parseInt(hex, 16);
         const r = (bigint >> 16) & 255;
         const g = (bigint >> 8) & 255;
