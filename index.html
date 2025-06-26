@@ -833,25 +833,25 @@
             const sliderContent = document.getElementById('sliderContent');
             
             // Kayan bandın scroll pozisyonuna göre fixed hale gelmesi
-            function handleScroll() {
-                if (window.scrollY >= navTop) {
-                    document.querySelector('#app-v-page').classList.add('is-fixed');
-                    if (scrollingBanner) {
-                        scrollingBanner.classList.add('fixed');
-                        if () {
-                            .classList.add('active');
-                        }
-                    }
-                } else {
-                    document.querySelector('#app-v-page').classList.remove('is-fixed');
-                    if (scrollingBanner) {
-                        scrollingBanner.classList.remove('fixed');
-                        if () {
-                            .classList.remove('active');
-                        }
-                    }
-                }
-            }
+	    function handleScroll() {
+   	       if (window.scrollY >= navTop) {
+      		   document.querySelector('#app-v-page').classList.add('is-fixed');
+      		   if (scrollingBanner) {
+        	       scrollingBanner.classList.add('fixed');
+         	       if (kayanBantSpacer) {
+               		   kayanBantSpacer.classList.add('active');
+           	       }
+       		  }
+    	       } else {
+        	   document.querySelector('#app-v-page').classList.remove('is-fixed');
+       	 	   if (scrollingBanner) {
+            	       scrollingBanner.classList.remove('fixed');
+            	       if (kayanBantSpacer) {
+                	   kayanBantSpacer.classList.remove('active');
+            	       }
+       		  }
+	    }
+     }
             
             window.addEventListener('scroll', handleScroll);
             
