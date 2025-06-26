@@ -984,17 +984,17 @@ fetch('hayalet.json')
             }
            // alt banner             
             let currentIndex = 0;
-
+            
             function updateFooterBanner() {
                 const footerBannerContainer = document.querySelector('.bottom-fixed.banner-item');
                 if (!footerBannerContainer) return;
 
                 fetch('hayalet.json?t=' + new Date().getTime())
                     .then(response => response.json())
-                    .then(banners => {
+                    .then(data => {
+                        const banners = data.bottom_fix;
                         if (!banners || !banners.length) return;
 
-                        // Diziden sıradaki banner'ı seç
                         const banner = banners[currentIndex];
                         currentIndex = (currentIndex + 1) % banners.length;
 
