@@ -36,6 +36,12 @@
 <body>
 <style>
 
+#swiper {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
 #swiper img {
     width: 100%;
     height: 200px;
@@ -52,45 +58,41 @@
 }
 
 
-/* Swiper container için genel düzenlemeler */
+/* Swiper düzenlemeleri */
 .swiper-container {
     width: 100%;
-    height: auto;
-    padding: 0 15px; /* Mobilde yanlara boşluk ekler */
-    box-sizing: border-box; /* Padding'i genişliğe dahil eder */
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-/* Swiper slide için düzenlemeler */
 .swiper-slide {
-    border-radius: 15px; /* Köşeleri yuvarlak yapar */
-    overflow: hidden; /* İçeriklerin yuvarlak köşeleri aşmasını engeller */
-    margin: 0 5px; /* Slide'lar arasına boşluk ekler */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 0 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Swiper slide içindeki resimler */
 .swiper-slide img {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 15px; /* Resim köşelerini yuvarlak yapar */
+    border-radius: 15px;
 }
 
-/* Mobil görünüm için özel ayarlar */
+/* Mobil uyumluluk */
 @media (max-width: 768px) {
     .swiper-container {
-        padding: 0 10px; /* Mobilde daha az yan boşluk */
+        padding: 0 10px;
     }
-    
     .swiper-slide {
-        border-radius: 10px; /* Mobilde biraz daha küçük yuvarlaklık */
+        border-radius: 10px;
     }
-    
     .swiper-slide img {
-        border-radius: 10px; /* Mobilde resim köşeleri */
+        border-radius: 10px;
+        height: 150px;
     }
 }
-
+	
 /* Çok küçük ekranlar için ek düzenlemeler */
 @media (max-width: 480px) {
     .swiper-container {
