@@ -45,3 +45,23 @@
     "sira_no": 5
   }
 ]
+
+
+const siteData = [
+  {
+    image: "bahisen",
+    name: "Bahisen",
+    url: "https://t2m.co/Hayalet",
+    desc: ["500₺ Deneme Bonusu", "Anında Üyelik"],
+    color: "#FF0000"
+  },
+  {
+    image: "bankobet",
+    name: "Bankobet",
+    url: "https://cutt.ly/erQniPqh",
+    desc: ["250₺ Bonus", "Hemen Başla"],
+    color: "#0037FF"
+  }
+  // ...istediğin kadar ekle
+];
+
