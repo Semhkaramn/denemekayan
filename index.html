@@ -435,17 +435,19 @@
 
         </header>
 
+			
         <!-- Kayan Bant (strip) -->
         <div class="ozel-siteler-banner" id="scrollingBanner" v-if="strip">
             <div class="ozel-siteler-slider">
             <div class="slider-content" id="sliderContent">
-                <a v-for="site in _.orderBy(strip.sites, [item => parseInt(item.sort)], ['asc'])"
-                 :href="_.find(client.sites, ['site', site.site]).url"
-                 class="site-item"
-                 target="_blank">
-                <img :src="client.cdn_url + _.find(client.sites, ['site', site.site]).site + '.png'" alt="">
-                 <div class="giris-btn">GİRİŞ YAP</div>
-                </a>
+		<a v-for="site in _.orderBy(strip.sites, [item => parseInt(item.sort)], ['asc'])"
+		   :href="_.find(client.sites, ['site', site.site]).url"
+		   class="site-item"
+		   target="_blank"
+		   :style="getSiteStyle(site.site)">
+		  <img :src="client.cdn_url + _.find(client.sites, ['site', site.site]).site + '.png'" alt="">
+		  <div class="giris-btn">GİRİŞ YAP</div>
+		</a>
             </div>
             </div>
         </div>
@@ -700,7 +702,36 @@
 
          const navTop = scrollingBanner.offsetTop;
 
-         // Scroll ile fixed olma
+	methods: {
+	  getSiteStyle(siteKey) {
+	    const siteData = _.find(this.client.sites, ['site', siteKey]);
+	    if (!siteData || !siteData.color) return '';
+	    
+	    const hex = siteData.color;
+	    const rgb = this.hexToRgb(hex); // RGB'ye dönüştür
+
+	    return `--band-color: ${hex}; --band-color-rgb: ${rgb};`;
+	  },
+	  
+	  hexToRgb(hex) {
+	    hex = hex.replace(/^#/, ''); // Başındaki # işaretini çıkar
+
+	    // Eğer 3 karakterlik kısa format (#f90) ise 6 karaktere çevir (#ff9900)
+	    if (hex.length === 3) {
+	      hex = hex.split('').map(char => char + char).join('');
+	    }
+
+	    const bigint = parseInt(hex, 16);
+	    const r = (bigint >> 16) & 255;
+	    const g = (bigint >> 8) & 255;
+	    const b = bigint & 255;
+
+	    return `${r}, ${g}, ${b}`;
+	  }
+	}
+
+			
+	 // Scroll ile fixed olma
          function handleScroll() {
            if (window.scrollY >= navTop) {
              document.querySelector('#app-v-page').classList.add('is-fixed');
