@@ -4,9 +4,9 @@
     "sites": [
       {
         "site": "bankobet",
-        "url": "https://cutt.ly/erQniPqh",
-        "desc": ["250 TL DENEME BONUSU", "%30 CASİNO KAYIP BONUSU"],
-        "sitepic": "img/logo/bankobet.png",
+        "url": "https://cutt.ly/evahayalet",
+        "desc": ["222₺ DENEME BONUSU", "%50 İLK YATIRIMA ÖZEL NAKİT BONUS"],
+        "sitepic": "img/logo/evabet.png",
         "color": "#b91560"
       },
       {
@@ -35,10 +35,10 @@
       {
         "name": "4 animasyonlu siteler",
         "sites": [
-          { "site": "bahisen", "bg": "bahisen.jpg" },
+          { "site": "evabet", "bg": "evabet.jpg" },
           { "site": "casinoroys", "bg": "casinoroys.jpg" },
           { "site": "mersobahis", "bg": "mersobahis.jpg" },
-          { "site": "bankobet", "bg": "bankobet.jpg" }
+          { "site": "bahisen", "bg": "bahisen.jpg" }
         ]
       }
     ]
@@ -55,12 +55,12 @@
     },
     {
       "id": 2,
-      "header": "250₺ DENEME BONUSU",
+      "header": "222₺ DENEME BONUSU",
       "sub_text": "",
-      "image": "bankobet.png",
-      "link": "https://cutt.ly/erQniPqh",
+      "image": "evabet.png",
+      "link": "https://cutt.ly/evahayalet",
       "level": 1,
-      "sira_no": 5
+      "sira_no": 2
     },
     {
       "id": 3,
@@ -87,7 +87,7 @@
       "image": "bahisen.png",
       "link": "https://t2m.co/Hayalet",
       "level": 1,
-      "sira_no": 2
+      "sira_no": 5
     }
   ]
 }
